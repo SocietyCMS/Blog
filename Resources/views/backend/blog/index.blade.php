@@ -1,0 +1,69 @@
+@extends('layouts.master')
+
+@section('title')
+	{{ trans('blog::blog.title.blog') }}
+@endsection
+@section('subTitle')
+    {{ trans('blog::blog.title.all blog posts') }}
+@endsection
+
+@section('content')
+
+	<div class="ui blue segment">
+		<a href="{{route('backend::blog.article.create')}}" class="fluid ui blue button">{{trans('core::elements.action.create resource', ['name'=>trans('blog::blog.title.article')])}}</a>
+	</div>
+
+	<table class="ui selectable very compact celled table">
+		<thead>
+			<tr>
+				<th>{{ trans('blog::blog.table.title') }}</th>
+				<th>{{ trans('blog::blog.table.author') }}</th>
+				<th>{{ trans('blog::blog.table.modified') }}</th>
+				<th>{{ trans('blog::blog.table.status') }}</th>
+				<th class="collapsing"></th>
+			</tr>
+		</thead>
+		<tbody>
+		@foreach ($articles as $article)
+			<tr>
+				<td><b><a href="{{route('backend::blog.article.edit',$article->slug)}}">{{$article->title}}</a></b></td>
+				<td>{{ $article->user->present()->fullname }}</td>
+				<td>{{$article->present()->updatedAt}}</td>
+				<td>
+					@if($article->published)
+                        <span class="ui green label">@lang('core::elements.state.published')</span>
+					@else
+                        <span class="ui yellow label">@lang('core::elements.state.draft')</span>
+					@endif
+				</td>
+				<td>
+                    <div class="ui icon top right pointing dropdown button">
+                        <i class="wrench icon"></i>
+                        <div class="menu">
+                            <a class="item" href="{{route('backend::blog.article.edit', $article->slug)}}">@lang('core::elements.button.edit')</a>
+                            <a class="disabled item">@lang('core::elements.button.delete')</a>
+                        </div>
+                    </div>
+				</td>
+			</tr>
+		@endforeach
+		@if($articles->count() == 0)
+			<tr class="center aligned">
+				<td colspan = "5">@lang('blog::blog.messages.no articles')</td>
+			</tr>
+		@endif
+		</tbody>
+	</table>
+
+@stop
+
+@section('javascript')
+    <script>
+
+        $('.dropdown')
+                .dropdown({
+                    // you can use any ui transition
+                    transition: 'drop'
+                });
+    </script>
+@endsection

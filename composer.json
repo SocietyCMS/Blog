@@ -1,0 +1,22 @@
+{
+  "name": "societycms/module-blog",
+  "description": "The SocietyCMS Blog module.",
+  "keywords": ["cms", "societycms"],
+  "license": "AGPL",
+  "version": "0.0.1",
+  "type": "societycms-module",
+  "authors": [
+    {
+      "name": "Ralph Huwiler",
+      "email": "ralph@huwiler.rocks"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Modules\\Blog\\": ""
+    }
+  },
+  "require": {
+    "spatie/laravel-medialibrary": "^3.2"
+  }
+}
