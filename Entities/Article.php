@@ -1,4 +1,6 @@
-<?php namespace Modules\Blog\Entities;
+<?php
+
+namespace Modules\Blog\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
@@ -17,7 +19,7 @@ class Article extends Model implements HasMediaConversions
     use baseMediaConversions;
 
     /**
-     * Presenter Class
+     * Presenter Class.
      *
      * @var string
      */
@@ -31,7 +33,7 @@ class Article extends Model implements HasMediaConversions
     protected $table = 'blog__articles';
 
     /**
-     * The fillable properties of the model
+     * The fillable properties of the model.
      *
      * @var array
      */
@@ -43,13 +45,14 @@ class Article extends Model implements HasMediaConversions
     protected static $recordEvents = ['created'];
 
     /**
-     * Views for the Dashboard timeline
+     * Views for the Dashboard timeline.
+     *
      * @var string
      */
     protected static $templatePath = 'blog::backend.activities';
 
     /**
-     * User relation
+     * User relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -67,6 +70,4 @@ class Article extends Model implements HasMediaConversions
     {
         return $this->belongsToMany('Modules\Blog\Entities\Tag', 'blog__articles_tags');
     }
-
-
 }

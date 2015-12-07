@@ -1,4 +1,6 @@
-<?php namespace Modules\Blog\Presenters;
+<?php
+
+namespace Modules\Blog\Presenters;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -6,14 +8,13 @@ use Laracasts\Presenter\Presenter;
 
 class ArticlePresenter extends Presenter
 {
-
     public function summary()
     {
         return Str::words($this->body, 50);
     }
 
     /**
-     * Format created_at
+     * Format created_at.
      *
      * @return string
      */
@@ -26,7 +27,7 @@ class ArticlePresenter extends Presenter
     }
 
     /**
-     * Format updated_at
+     * Format updated_at.
      *
      * @return string
      */

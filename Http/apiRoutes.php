@@ -2,10 +2,10 @@
 
 $api->version('v1', function ($api) {
     $api->group([
-        'prefix' => 'blog',
-        'namespace' => $this->namespace . '\api',
+        'prefix'     => 'blog',
+        'namespace'  => $this->namespace.'\api',
         'middleware' => config('society.core.core.middleware.api.backend', []),
-        'providers' => ['jwt']
+        'providers'  => ['jwt'],
     ], function ($api) {
 
         $api->resource('article', 'ArticleController', ['only' => ['index', 'store', 'show', 'destroy']]);

@@ -1,4 +1,5 @@
 <?php
+
 return [
     'article' => [
         'index' => [
@@ -13,7 +14,7 @@ return [
             'blog.article.update',
             'blog.article.getImage',
             'blog.article.postImage',
-            'blog.article.deleteImage'
+            'blog.article.deleteImage',
         ],
         'destroy' => [
             'blog.article.destroy',
