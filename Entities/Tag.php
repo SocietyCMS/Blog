@@ -1,10 +1,11 @@
-<?php namespace Modules\Blog\Entities;
+<?php
+
+namespace Modules\Blog\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
-
     protected $fillable = ['name', 'slug'];
 
     protected $table = 'blog__tags';

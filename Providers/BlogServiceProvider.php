@@ -1,11 +1,11 @@
-<?php namespace Modules\Blog\Providers;
+<?php
+
+namespace Modules\Blog\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Modules\Blog\Repositories\Eloquent\EloquentArticleRepository;
 
 class BlogServiceProvider extends ServiceProvider
 {
-
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -33,10 +33,10 @@ class BlogServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__ . '/../Config/config.php' => config_path('blog.php'),
+            __DIR__.'/../Config/config.php' => config_path('blog.php'),
         ]);
         $this->mergeConfigFrom(
-            __DIR__ . '/../Config/config.php', 'blog'
+            __DIR__.'/../Config/config.php', 'blog'
         );
     }
 
@@ -52,7 +52,7 @@ class BlogServiceProvider extends ServiceProvider
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, 'blog');
         } else {
-            $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'blog');
+            $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'blog');
         }
     }
 
@@ -65,10 +65,10 @@ class BlogServiceProvider extends ServiceProvider
     {
         $viewPath = base_path('resources/views/modules/blog');
 
-        $sourcePath = __DIR__ . '/../Resources/views';
+        $sourcePath = __DIR__.'/../Resources/views';
 
         $this->publishes([
-            $sourcePath => $viewPath
+            $sourcePath => $viewPath,
         ]);
 
         $this->loadViewsFrom([$viewPath, $sourcePath], 'blog');
@@ -81,7 +81,6 @@ class BlogServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
 
     /**
@@ -91,7 +90,6 @@ class BlogServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array();
+        return [];
     }
-
 }

@@ -1,35 +1,36 @@
-<?php namespace Modules\Blog\Repositories;
+<?php
+
+namespace Modules\Blog\Repositories;
 
 use Modules\Core\Repositories\Eloquent\EloquentSlugRepository;
 
 class ArticleRepository extends EloquentSlugRepository
 {
-
     /**
-     * Specify Model class name
+     * Specify Model class name.
      *
      * @return string
      */
     public function model()
     {
-        return "Modules\\Blog\\Entities\\Article";
+        return 'Modules\\Blog\\Entities\\Article';
     }
 
-
     /**
-     * Return all ordered with OrderCriteria
+     * Return all ordered with OrderCriteria.
      *
      * @return mixed
      */
-    public function all($columns = array('*'))
+    public function all($columns = ['*'])
     {
         return parent::all($columns);
     }
 
-
     /**
-     * Return the latest x blog posts
+     * Return the latest x blog posts.
+     *
      * @param int $amount
+     *
      * @return Collection
      */
     public function latest()
@@ -54,8 +55,10 @@ class ArticleRepository extends EloquentSlugRepository
     }
 
     /**
-     * Return the latest x blog posts
+     * Return the latest x blog posts.
+     *
      * @param int $amount
+     *
      * @return Collection
      */
     public function latestPublishedArticles()
@@ -63,10 +66,11 @@ class ArticleRepository extends EloquentSlugRepository
         return $this->model->wherePublished(1)->orderBy('created_at', 'desc')->get();
     }
 
-
     /**
-     * Get the previous post of the given post
+     * Get the previous post of the given post.
+     *
      * @param object $article
+     *
      * @return object
      */
     public function getPreviousOf($article)
@@ -76,8 +80,10 @@ class ArticleRepository extends EloquentSlugRepository
     }
 
     /**
-     * Get the next post of the given post
+     * Get the next post of the given post.
+     *
      * @param object $article
+     *
      * @return object
      */
     public function getNextOf($article)
@@ -85,5 +91,4 @@ class ArticleRepository extends EloquentSlugRepository
         return $this->model->where('created_at', '>', $article->created_at)
             ->wherePublished(1)->first();
     }
-
 }

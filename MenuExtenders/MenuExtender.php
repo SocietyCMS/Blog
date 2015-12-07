@@ -1,4 +1,6 @@
-<?php namespace Modules\Blog\MenuExtenders;
+<?php
+
+namespace Modules\Blog\MenuExtenders;
 
 use Modules\Core\Contracts\Authentication;
 use Modules\Menu\Repositories\Menu\MenuRepository;
@@ -30,7 +32,7 @@ class MenuExtender implements \Modules\Menu\Repositories\MenuExtender
         $menuRepository->mainMenu()->route('blog.index', trans('blog::blog.title.blog'), [], 1, [
             'active' => function () {
                 return \Route::is('blog.index') || \Route::is('blog.show');
-            }
+            },
         ]);
 
         return $menuRepository;

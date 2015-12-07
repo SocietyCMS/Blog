@@ -5,7 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateArticlesTagsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -29,5 +28,4 @@ class CreateArticlesTagsTable extends Migration
     {
         Schema::drop('blog__articles_tags');
     }
-
 }

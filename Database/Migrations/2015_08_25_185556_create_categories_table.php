@@ -5,7 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateCategoriesTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -30,5 +29,4 @@ class CreateCategoriesTable extends Migration
     {
         Schema::drop('blog__categories');
     }
-
 }
