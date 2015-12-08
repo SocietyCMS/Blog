@@ -26,4 +26,5 @@
     </form>
 
     @include('blog::backend.forms.images')
+    @include('blog::backend.forms.files')
 @endsection

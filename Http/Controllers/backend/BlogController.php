@@ -66,28 +66,4 @@ class BlogController extends AdminBaseController
         return redirect()->route('backend::blog.article.index')
             ->with('success', 'Your article has been updated successfully.');
     }
-
-    public function getImage(Request $request, $slug)
-    {
-        $article = $this->article->findBySlug($slug);
-        $article->clearMediaCollection('images');
-
-        return $article;
-    }
-
-    public function postImage(Request $request, $slug)
-    {
-        $article = $this->article->findBySlug($slug);
-        $article->addMedia($request->file('file'))
-            ->toMediaLibrary('images');
-
-        return $article;
-    }
-
-    public function deleteImage($slug)
-    {
-        $article = $this->article->findBySlug($slug);
-
-        return $article;
-    }
 }

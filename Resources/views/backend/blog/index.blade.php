@@ -26,7 +26,14 @@
 		<tbody>
 		@foreach ($articles as $article)
 			<tr>
-				<td><b><a href="{{route('backend::blog.article.edit',$article->slug)}}">{{$article->title}}</a></b></td>
+				<td>
+					<b><a href="{{route('backend::blog.article.edit',$article->slug)}}">{{$article->title}}</a> </b>
+					@if($article->getMedia('images')->count() > 0)
+						<div class="ui horizontal blue right floated mini label">
+							<i class="photo icon"></i> @lang('blog::blog.images.title')
+						</div>
+					@endif
+				</td>
 				<td>{{ $article->user->present()->fullname }}</td>
 				<td>{{$article->present()->updatedAt}}</td>
 				<td>

@@ -64,9 +64,6 @@ class ArticleController extends ApiBaseController
         $article = $this->article->create($input);
 
         return $this->successCreated();
-
-        return redirect()->route('backend::blog.article.index')
-            ->with('success', 'Your article has been created successfully.');
     }
 
     /**

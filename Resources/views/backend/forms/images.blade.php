@@ -1,4 +1,4 @@
-<div class="ui blue segment">
+<div class="ui blue segment" id="blogImagesSegment">
 
     <div class="ui basic segment" id="imagesToolbar">
     </div>
@@ -18,7 +18,7 @@
     <script type="text/template" id="albumToolbarTemplate">
         <div class="qq-uploader-selector qq-uploader">
 
-            <div id="uploadButton">
+            <div id="uploadImageButton">
 
                 <div class="ui basic button qq-upload-button-selector qq-upload-button" >
                     <i class="icon photo"></i>
@@ -27,7 +27,7 @@
                 <div class="ui red basic right floated button" id="deleteAlbumButton" style="display: none"> @lang('core::elements.action.delete resource', ['name' => trans('blog::blog.title.photo')])</div>
             </div>
 
-            <div class="ui indicating right floated progress qq-drop-processing-selector qq-drop-processing" id="uploadProgrssbar" style="display: none">
+            <div class="ui indicating right floated progress qq-drop-processing-selector qq-drop-processing" id="uploadImageProgrssbar" style="display: none">
                 <div class="bar"></div>
                 <div class="label">@lang('core::elements.progress.uploading resource', ['name' => trans('blog::blog.title.photos')])</div>
             </div>
@@ -57,8 +57,8 @@
 @section('javascript--second')
     <script>
 
-        VueInstance = new Vue({
-            el: '#societyAdmin',
+        VueInstanceImage = new Vue({
+            el: '#blogImagesSegment',
             data: {
                 album:null,
                 detailPhoto: null,
@@ -101,6 +101,7 @@
             template: $('#albumToolbarTemplate'),
             request: {
                 endpoint: '{{ apiRoute('v1', 'api.blog.article.image.store', ['article' => $article->slug])}}',
+                inputName: 'image',
                 customHeaders: {
                     "Authorization": "Bearer {{$jwtoken}}"
                 }
@@ -114,47 +115,26 @@
             callbacks: {
                 onComplete: function (id, name, responseJSON) {
                     this.getItemByFileId(id).remove();
-                    VueInstance.addPhoto(responseJSON)
+                    VueInstanceImage.addPhoto(responseJSON)
                 },
                 onUpload: function() {
-                    $('#uploadButton').hide();
-                    $('#uploadProgrssbar').show();
+                    $('#uploadImageButton').hide();
+                    $('#uploadImageProgrssbar').show();
                 },
                 onTotalProgress: function(totalUploadedBytes, totalBytes) {
-                    $('#uploadProgrssbar').progress({
+                    $('#uploadImageProgrssbar').progress({
                         percent: Math.ceil(totalUploadedBytes / totalBytes * 100)
                     });
                 },
                 onAllComplete: function(succeeded, failed) {
-                    $('#uploadButton').show();
-                    $('#uploadProgrssbar').hide();
+                    $('#uploadImageButton').show();
+                    $('#uploadImageProgrssbar').hide();
                 }
             }
         });
 
-        $('#deleteAlbumButton').click(function(){VueInstance.deletePhoto()});
+        $('#deleteAlbumButton').click(function(){VueInstanceImage.deletePhoto()});
 
     </script>
 
 @endsection
-
-
-
-<!--
-<div class='box collapsed-box'>
-    <div class='box-header'>
-        <h3 class='box-title'>{{ trans('blog::blog.images.title') }}</h3>
-        <div class="box-tools pull-right">
-            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-        </div>
-    </div>
-    <div class="box-body">
-        <dropzone-image
-                url="{{app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('api.blog.article.image.store',$article->slug)}}?token={{$jwtoken}}"
-                init="{{app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('api.blog.article.image.index',$article->slug)}}?token={{$jwtoken}}"
-                destroy="{{app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('api.blog.article.image.destroy',['article' => $article->slug, 'image' => '[$1]'])}}/?token={{$jwtoken}}"
-                ></dropzone-image>
-    </div>
-</div>
-
--->

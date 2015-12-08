@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Modules\Blog\Repositories\ArticleRepository;
 use Modules\Blog\Transformers\ArticleImagesTransformer;
 use Modules\Core\Http\Controllers\ApiBaseController;
+use Modules\Core\Http\Requests\MediaImageRequest;
 
 class ArticleImageController extends ApiBaseController
 {
@@ -27,11 +28,11 @@ class ArticleImageController extends ApiBaseController
         return $this->response->collection($article->getMedia('images'), new ArticleImagesTransformer());
     }
 
-    public function store(Request $request, $slug)
+    public function store(MediaImageRequest $request, $slug)
     {
         $article = $this->article->findBySlug($slug);
 
-        $savedImage = $article->addMedia($request->files->get('qqfile'))->toMediaLibrary('images');
+        $savedImage = $article->addMedia($request->files->get('image'))->toMediaLibrary('images');
 
         $resourceUrl = app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('api.blog.article.image.show', ['article' => $slug, 'image' => $savedImage->id]);
 

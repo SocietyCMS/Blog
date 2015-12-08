@@ -11,6 +11,8 @@ $api->version('v1', function ($api) {
         $api->resource('article', 'ArticleController', ['only' => ['index', 'store', 'show', 'destroy']]);
         $api->resource('article.image', 'ArticleImageController',
             ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+        $api->resource('article.file', 'ArticleFileController',
+            ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
 
     });
 });
