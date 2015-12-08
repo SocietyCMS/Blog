@@ -4,23 +4,44 @@ namespace Modules\Blog\Http\Controllers\api;
 
 use DebugBar\DebugBarException;
 use Illuminate\Http\Request;
+use Modules\Blog\Http\Requests\ArticleRequest;
 use Modules\Blog\Repositories\ArticleRepository;
 use Modules\Blog\Transformers\ArticleTransformer;
+use Modules\Core\Contracts\Authentication;
 use Modules\Core\Http\Controllers\ApiBaseController;
 
+/**
+ * Class ArticleController
+ * @package Modules\Blog\Http\Controllers\api
+ */
 class ArticleController extends ApiBaseController
 {
+    /**
+     * @var Authentication
+     */
+    private $auth;
+
     /**
      * @var PageRepository
      */
     private $article;
 
-    public function __construct(ArticleRepository $article)
+    /**
+     * ArticleController constructor.
+     * @param ArticleRepository $article
+     * @param Authentication    $auth
+     */
+    public function __construct(ArticleRepository $article, Authentication $auth)
     {
         parent::__construct();
         $this->article = $article;
+        $this->auth = $auth;
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function index(Request $request)
     {
         $articles = $this->article->all();
@@ -28,11 +49,31 @@ class ArticleController extends ApiBaseController
         return $this->response->collection($articles, new ArticleTransformer());
     }
 
-    public function store(Request $request, $slug)
+    /**
+     * @param ArticleRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(ArticleRequest $request)
     {
-        throw new DebugBarException();
+        $input = array_merge($request->input(), [
+            'user_id'   => $this->auth->check()->id,
+            'slug'      => $this->article->getSlugForTitle($request->title),
+            'published' => (bool) $request->published,
+        ]);
+
+        $article = $this->article->create($input);
+
+        return $this->successCreated();
+
+        return redirect()->route('backend::blog.article.index')
+            ->with('success', 'Your article has been created successfully.');
     }
 
+    /**
+     * @param Request $request
+     * @param         $slug
+     * @return mixed
+     */
     public function show(Request $request, $slug)
     {
         $article = $this->article->findBySlug($slug);
@@ -40,11 +81,21 @@ class ArticleController extends ApiBaseController
         return $this->response->item($article, new ArticleTransformer());
     }
 
+    /**
+     * @param Request $request
+     * @param         $slug
+     * @throws DebugBarException
+     */
     public function update(Request $request, $slug)
     {
         throw new DebugBarException();
     }
 
+    /**
+     * @param Request $request
+     * @param         $slug
+     * @throws DebugBarException
+     */
     public function destroy(Request $request, $slug)
     {
         throw new DebugBarException();
