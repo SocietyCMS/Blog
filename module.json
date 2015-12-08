@@ -8,8 +8,7 @@
   "order": 10,
   "providers": [
     "Modules\\Blog\\Providers\\BlogServiceProvider",
-    "Modules\\Blog\\Providers\\RouteServiceProvider",
-    "Spatie\\MediaLibrary\\MediaLibraryServiceProvider"
+    "Modules\\Blog\\Providers\\RouteServiceProvider"
   ],
   "aliases": {},
   "files": [
