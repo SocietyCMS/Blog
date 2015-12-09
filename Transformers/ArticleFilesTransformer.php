@@ -14,7 +14,7 @@ class ArticleFilesTransformer extends Fractal\TransformerAbstract
             'name'      => $articleFiles->name,
             'file_name' => $articleFiles->file_name,
             'size'      => $articleFiles->size,
-            'mime-type'  => $articleFiles->getCustomProperty('mime-type')
+            'mime_type'  => $articleFiles->getCustomProperty('mime-type')
         ];
     }
 }

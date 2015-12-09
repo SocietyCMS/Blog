@@ -82,7 +82,7 @@ class ArticleFileController extends ApiBaseController
     public function destroy(Request $request, $slug, $file)
     {
         $article = $this->article->findBySlug($slug);
-
+        
         $article->getMedia('files')->keyBy('id')->get($file)->delete();
 
         return $this->response->noContent();

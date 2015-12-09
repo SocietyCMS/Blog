@@ -1,17 +1,4 @@
-<div class="ui blue segment" id="blogImagesSegment">
 
-    <div class="ui basic segment" id="imagesToolbar">
-    </div>
-
-    <div class="ui grid qq-upload-drop-area" id="blogImages">
-        <div class="eight wide tablet two wide computer photo column"  v-for="photo in album" v-bind:class="{'selected': photo == detailPhoto }" v-on:click="detail(photo)">
-            <a class="ui basic photo raised segment">
-                <div class="photo image"><img class="ui medium bordered image" v-bind:src="photo.thumbnail.medium"></div>
-            </a>
-        </div>
-    </div>
-
-</div>
 
 
 @section('htmlComponents')

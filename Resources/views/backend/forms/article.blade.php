@@ -15,19 +15,13 @@
     {!! $errors->first('body', '<div class="ui error message">:message</div>') !!}
 </div>
 
-<div class="field ">
+<div class="required field">
+    @include('blog::backend.blog.components.media')
+</div>
+
+<div class="ui segment field">
     <div class="ui toggle checkbox">
         <input type="checkbox" name="published" value="1" @if(isset($article) && $article->published) checked @endif >
         <label>@lang('core::elements.change state.publish')</label>
     </div>
 </div>
-
-@section('javascript')
-    <script>
-        var editor = new MediumEditor('.editable', {
-            placeholder: {
-                text: ''
-            }
-        });
-    </script>
-@endsection
