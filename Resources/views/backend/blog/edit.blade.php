@@ -117,6 +117,9 @@
                     }
                     return "file outline"
                 },
+                humanReadableFilesize: function (size) {
+                    return filesize(size,{round: 0})
+                },
                 detail: function (file) {
                     this.detailFile = file;
                     $('#deleteFileButton').show();

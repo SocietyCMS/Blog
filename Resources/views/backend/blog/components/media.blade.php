@@ -52,6 +52,9 @@
                         <td>
                             <i class="@{{ fileClass(file.mime_type) }} icon"></i> @{{ file.file_name  }}
                         </td>
+                        <td>
+                            @{{ humanReadableFilesize(file.size)  }}
+                        </td>
                         <td class="right aligned">
                             <button class="ui basic icon button" v-on:click="deleteFile(file)">
                                 <i class="trash icon"></i>
