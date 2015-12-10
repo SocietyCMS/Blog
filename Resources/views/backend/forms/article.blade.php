@@ -15,10 +15,6 @@
     {!! $errors->first('body', '<div class="ui error message">:message</div>') !!}
 </div>
 
-<div class="required field">
-    @include('blog::backend.blog.components.media')
-</div>
-
 <div class="ui segment field">
     <div class="ui toggle checkbox">
         <input type="checkbox" name="published" value="1" @if(isset($article) && $article->published) checked @endif >

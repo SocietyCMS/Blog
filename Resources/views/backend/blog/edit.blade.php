@@ -14,6 +14,16 @@
 
         @include('blog::backend.forms.article')
 
+        <div class="ui detail accordion field">
+            <div class="title">
+                <i class="icon dropdown"></i>
+                @lang('core::elements.button.optional details')
+            </div>
+            <div class="content field">
+                @include('blog::backend.blog.components.media')
+            </div>
+        </div>
+
         <div class="ui basic clearing segment">
             <a href="{{route('backend::blog.article.index')}}" class="ui right floated button">
                 {{ trans('core::elements.button.cancel') }}
@@ -36,7 +46,7 @@
             }
         });
 
-        $('.ui.accordion')
+        $('.ui.detail.accordion')
                 .accordion();
     </script>
 
