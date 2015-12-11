@@ -29,7 +29,7 @@ class PublicController extends PublicBaseController
      */
     public function index()
     {
-        $articles = $this->article->latestPublishedArticles();
+        $articles = $this->article->latestPinnedAndPublishedArticles();
 
         return view('blog::public.index', compact('articles'));
     }

@@ -43,14 +43,19 @@
 
             <div class="row">
                 @foreach ($articles as $article)
-                    <div class="panel panel-default">
+                    @if($article->pinned)
+                        <div class="panel panel-success">
+                    @else
+                        <div class="panel panel-default">
+                    @endif
+
 
                         @if($article->getFirstMedia('images'))
                             <a href="{{route('blog.show', $article->slug)}}"><img src="{{$article->getFirstMediaUrl('images', 'cover900')}}" class="article-cover-image" data-holder-rendered="true"></a>
                         @endif
 
                         <div class="panel-body">
-                            <span class="text-muted small"><i class="fa fa-clock-o"></i> {{$article->present()->updatedAt}} by <b>{{$article->user->present()->fullname}}</b> </span>
+                            <span class="text-muted small"><i class="fa fa-clock-o"></i> {{$article->present()->createdAt}} by <b>{{$article->user->present()->fullname}}</b> </span>
 
                             <div class="pull-right">
                                 @foreach($article->tags as $tag)

@@ -27,14 +27,21 @@
 		@foreach ($articles as $article)
 			<tr>
 				<td>
-					<b><a href="{{route('backend::blog.article.edit',$article->slug)}}">{{$article->title}}</a> </b>
+					@if($article->pinned)
+						<div class="ui green ribbon label"><i class="pin icon"></i></div>
+					@endif
+
+					<b><a href="{{route('backend::blog.article.edit',$article->slug)}}">
+							{{$article->title}}
+					</a></b>
+
 					@if($article->getMedia('images')->count() > 0)
-						<div class="ui horizontal blue right floated mini label">
+						<div class="ui horizontal right floated small label">
 							<i class="photo icon"></i> @lang('blog::blog.title.photos')
 						</div>
 					@endif
 					@if($article->getMedia('files')->count() > 0)
-						<div class="ui horizontal blue right floated mini label">
+						<div class="ui horizontal right floated small label">
 							<i class="file icon"></i> @lang('blog::blog.title.files')
 						</div>
 					@endif

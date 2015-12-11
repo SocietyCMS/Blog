@@ -55,7 +55,7 @@ class ArticleRepository extends EloquentSlugRepository
     }
 
     /**
-     * Return the latest x blog posts.
+     * Return the latest published blog posts.
      *
      * @param int $amount
      *
@@ -65,6 +65,35 @@ class ArticleRepository extends EloquentSlugRepository
     {
         return $this->model->wherePublished(1)->orderBy('created_at', 'desc')->get();
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function allPinnedArticles()
+    {
+        return $this->model->wherePinned(1)->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function latestPinnedArticles()
+    {
+        return $this->model->wherePublished(1)->wherePinned(1)->orderBy('created_at', 'desc')->get();
+    }
+
+    /**
+     * Return the latest published blog posts.
+     *
+     * @param int $amount
+     *
+     * @return Collection
+     */
+    public function latestPinnedAndPublishedArticles()
+    {
+        return $this->model->wherePublished(1)->orderBy('pinned', 'desc')->orderBy('created_at', 'desc')->get();
+    }
+
 
     /**
      * Get the previous post of the given post.

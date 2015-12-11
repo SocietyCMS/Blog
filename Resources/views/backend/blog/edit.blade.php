@@ -20,10 +20,12 @@
                 @lang('core::elements.button.optional details')
             </div>
             <div class="content field">
+
+
                 <div class="ui segment field">
                     <div class="ui toggle checkbox">
                         <input type="checkbox" name="pinned" value="1" @if(isset($article) && $article->pinned) checked @endif >
-                        <label>@lang('blog::blog.state.publish')</label>
+                        <label>@lang('blog::blog.state.pinned')</label>
                     </div>
                 </div>
 

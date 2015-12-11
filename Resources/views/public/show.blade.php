@@ -47,15 +47,15 @@
         @endif
 
 
+        @if($article->getFirstMedia('files'))
+            <hr>
 
-        <hr>
-
-
-        <div class="list-group">
-            <a href="#" class="list-group-item"><i class="fa fa-file-pdf-o"></i> Quaterly_Report_2014.pdf</a>
-            <a href="#" class="list-group-item"><i class="fa fa-file-powerpoint-o"></i> Presentation.pptx</a>
-            <a href="#" class="list-group-item"><i class="fa fa-file-o"></i> Members.csv</a>
-        </div>
+            <div class="list-group">
+                @foreach($article->getMedia('files') as $media)
+                    <a href="#" class="list-group-item"><i class="fa fa-file-o"></i> {{$media->file_name}}</a>
+                @endforeach
+            </div>
+        @endif
 
     </div>
 @stop
