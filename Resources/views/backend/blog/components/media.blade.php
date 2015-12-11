@@ -10,14 +10,15 @@
 
             <div class="ui blue transition visible" id="blogImagesSegment">
 
-                <div id="uploadImageButton">
-
-                    <div class="ui basic button" id="uploadImageButton">
-                        <i class="icon photo"></i>
-                        @lang('core::elements.action.add resource', ['name' => trans('blog::blog.title.photo')])
-                    </div>
-                    <div class="ui red basic right floated button" id="deleteAlbumButton" style="display: none"> @lang('core::elements.action.delete resource', ['name' => trans('blog::blog.title.photo')])</div>
+                <div class="ui basic button" id="uploadImageButton">
+                    <i class="icon photo"></i>
+                    @lang('core::elements.action.add resource', ['name' => trans('blog::blog.title.photo')])
                 </div>
+
+                <div class="ui red basic right floated button" id="deleteAlbumButton" style="display: none">
+                    @lang('core::elements.action.delete resource', ['name' => trans('blog::blog.title.photo')])
+                </div>
+
 
                 <div class="ui indicating right floated progress qq-drop-processing-selector qq-drop-processing" id="uploadImageProgrssbar" style="display: none">
                     <div class="bar"></div>

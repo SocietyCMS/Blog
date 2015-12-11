@@ -32,9 +32,6 @@ return [
         'tags'      => 'Tags',
         'category'  => 'Category',
     ],
-    'images' => [
-        'title' => 'Images',
-    ],
     'messages' => [
         'no articles' => 'No blog posts yet. You can add one with the button above.',
     ],
