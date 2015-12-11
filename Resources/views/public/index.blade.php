@@ -7,35 +7,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-lg-3 pull-right">
-
-            <form class="form-group">
-                <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                </div>
-            </form>
-
-            <ul class="list-group">
-                <a class="list-group-item active" href="#">
-                    All Articles
-                </a>
-                <a class="list-group-item " href="#">
-                    New Features
-                </a>
-                <a class="list-group-item " href="#">
-                    Meetups
-                </a>
-                <a class="list-group-item " href="#">
-                    Contact
-                </a>
-
-            </ul>
-        </div>
-
-        <div class="col-lg-8">
+        <div class="col-lg-12">
 
             <h1>All Articles</h1>
 
