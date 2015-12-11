@@ -19,7 +19,11 @@ return [
     'form' => [
         'title'   => 'Title',
         'slug'    => 'Slug',
-        'content' => 'Content',
+        'content' => 'Content'
+    ],
+    'state' => [
+        'pin'     => 'Pin',
+        'pinned'  => 'Pinned'
     ],
     'validation' => [
         'attributes' => [

@@ -9,6 +9,10 @@ use Modules\User\Traits\Activity\RecordsActivity;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
+/**
+ * Class Article
+ * @package Modules\Blog\Entities
+ */
 class Article extends Model implements HasMediaConversions
 {
     use HasMediaTrait;
@@ -37,7 +41,7 @@ class Article extends Model implements HasMediaConversions
      *
      * @var array
      */
-    protected $fillable = ['title', 'slug', 'body', 'published', 'user_id'];
+    protected $fillable = ['title', 'slug', 'body', 'published', 'pinned', 'user_id'];
 
     /**
      * @var array
@@ -57,15 +61,21 @@ class Article extends Model implements HasMediaConversions
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
-    { //Change to Repo
+    {
         return $this->belongsTo('Modules\User\Entities\Sentinel\EloquentUser', 'user_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function category()
     {
         return $this->hasOne('Modules\Blog\Entities\Category');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function tags()
     {
         return $this->belongsToMany('Modules\Blog\Entities\Tag', 'blog__articles_tags');

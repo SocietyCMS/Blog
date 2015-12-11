@@ -59,6 +59,7 @@ class BlogController extends AdminBaseController
         $input = array_merge($request->input(), [
             'user_id'   => Sentinel::getUser()->id,
             'published' => (bool) $request->published,
+            'pinned' => (bool) $request->pinned,
         ]);
 
         $this->article->update($input, $this->article->findBySlug($slug)->id);

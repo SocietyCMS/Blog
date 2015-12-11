@@ -18,6 +18,7 @@ class CreateArticlesTable extends Migration
             $table->string('slug');
             $table->text('body');
             $table->boolean('published')->default(0);
+            $table->boolean('pinned')->default(0);
             $table->string('template');
             $table->integer('user_id');
             $table->integer('category_id')->index();
