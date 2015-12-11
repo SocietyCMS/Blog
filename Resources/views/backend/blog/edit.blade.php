@@ -52,6 +52,94 @@
 
     <script>
 
+
+        var dragAndDropModule = new fineUploader.DragAndDrop({
+            dropZoneElements: [document.getElementById('blogImages')],
+            classes: {
+                dropActive: "cssClassToAddToDropZoneOnEnter"
+            },
+            callbacks: {
+                processingDroppedFilesComplete: function (files, dropTarget) {
+                    fineUploaderBasicInstanceImages.addFiles(files);
+                }
+            }
+        });
+
+        var fineUploaderBasicInstanceImages = new fineUploader.FineUploaderBasic({
+            button: document.getElementById('uploadImageButton'),
+            request: {
+                endpoint: '{{ apiRoute('v1', 'api.blog.article.image.store', ['article' => $article->slug])}}',
+                inputName: 'image',
+                customHeaders: {
+                    "Authorization": "Bearer {{$jwtoken}}"
+                }
+            },
+            callbacks: {
+                onComplete: function (id, name, responseJSON) {
+                    VueInstanceImage.addPhoto(responseJSON)
+                },
+                onUpload: function() {
+                    $('#uploadImageButton').hide();
+                    $('#uploadImageProgrssbar').show();
+                },
+                onTotalProgress: function(totalUploadedBytes, totalBytes) {
+                    $('#uploadImageProgrssbar').progress({
+                        percent: Math.ceil(totalUploadedBytes / totalBytes * 100)
+                    });
+                },
+                onAllComplete: function(succeeded, failed) {
+                    $('#uploadImageButton').show();
+                    $('#uploadImageProgrssbar').hide();
+                }
+            }
+        });
+
+        VueInstanceImage = new Vue({
+            el: '#blogImagesSegment',
+            data: {
+                album:null,
+                detailPhoto: null,
+                loaded: false
+            },
+            ready: function() {
+
+                this.$http.get('{{apiRoute('v1', 'api.blog.article.image.index', ['article' => $article->slug])}}', function (data, status, request) {
+
+                    this.$set('album', data.data);
+                    this.$set('meta', data.meta);
+                    this.$set('loaded', true);
+
+                }).error(function (data, status, request) {
+                });
+
+            },
+            methods: {
+                detail: function (photo) {
+                    this.detailPhoto = photo;
+                    $('#deleteAlbumButton').show();
+                },
+                addPhoto: function(photo) {
+                    this.album.push(photo.data);
+                },
+                deletePhoto: function() {
+
+                    var resource = this.$resource('{{apiRoute('v1', 'api.blog.article.image.destroy', ['article' => $article->slug, 'image' => ':id'])}}');
+
+                    resource.delete({id: this.detailPhoto.id}, this.detailPhoto, function (data, status, request) {
+                        this.album.pop(this.detailPhoto);
+                    }).error(function (data, status, request) {
+                    });
+                }
+            }
+
+        });
+
+        $('#deleteAlbumButton').click(function(){VueInstanceImage.deletePhoto()});
+
+    </script>
+
+    <script>
+
         var dragAndDropModule = new fineUploader.DragAndDrop({
             dropZoneElements: [document.getElementById('blogFiles')],
             classes: {
@@ -59,12 +147,12 @@
             },
             callbacks: {
                 processingDroppedFilesComplete: function (files, dropTarget) {
-                    fineUploaderBasicInstance.addFiles(files);
+                    fineUploaderBasicInstanceFiles.addFiles(files);
                 }
             }
         });
 
-        var fineUploaderBasicInstance = new fineUploader.FineUploaderBasic({
+        var fineUploaderBasicInstanceFiles = new fineUploader.FineUploaderBasic({
             button: document.getElementById('uploadFileButton'),
             request: {
                 endpoint: '{{ apiRoute('v1', 'api.blog.article.file.store', ['article' => $article->slug])}}',
