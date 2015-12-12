@@ -248,6 +248,8 @@
         });
 
     </script>
+@endsection
 
-
+@section('styles')
+    <link href="{{\Pingpong\Modules\Facades\Module::asset('blog:css/Blog.css')}}" rel="stylesheet" type="text/css">
 @endsection

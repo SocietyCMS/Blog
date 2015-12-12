@@ -32,8 +32,8 @@
                         <div class="eight wide tablet two wide computer photo column" v-for="photo in album"
                              v-bind:class="{'selected': photo == detailPhoto }" v-on:click="detail(photo)">
                             <a class="ui basic photo raised segment">
-                                <div class="photo image"><img class="ui tiny bordered image"
-                                                              v-bind:src="photo.thumbnail.square"></div>
+                                <div class="photo image"><img class="ui small bordered image"
+                                                              v-bind:src="photo.thumbnail.medium"></div>
                             </a>
                         </div>
                     </div>
