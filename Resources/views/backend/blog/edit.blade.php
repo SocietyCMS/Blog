@@ -24,6 +24,7 @@
 
                 <div class="ui segment field">
                     <div class="ui toggle checkbox">
+                        <input type='hidden' value='0' name='pinned'>
                         <input type="checkbox" name="pinned" value="1" @if(isset($article) && $article->pinned) checked @endif >
                         <label>@lang('blog::blog.state.pinned')</label>
                     </div>
