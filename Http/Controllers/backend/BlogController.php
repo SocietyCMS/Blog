@@ -67,4 +67,13 @@ class BlogController extends AdminBaseController
         return redirect()->route('backend::blog.article.index')
             ->with('success', 'Your article has been updated successfully.');
     }
+
+    public function destroy($slug)
+    {
+        $article = $this->article->findBySlug($slug);
+        $article->delete();
+
+        return redirect()->route('backend::blog.article.index')
+            ->with('success', 'Your article has been deleted.');
+    }
 }
