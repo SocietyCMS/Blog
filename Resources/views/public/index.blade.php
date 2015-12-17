@@ -8,11 +8,6 @@
 
     <div class="row">
         <div class="col-lg-12">
-
-            <h1>All Articles</h1>
-
-            <hr>
-
             <div class="row">
                 @foreach ($articles as $article)
                     @if($article->pinned)
