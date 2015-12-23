@@ -36,7 +36,6 @@ class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
 
             $group->item(trans('blog::blog.title.blog'), function (Item $item) {
                 $item->weight(10);
-                $item->icon('fa fa-newspaper-o');
                 $item->route('backend::blog.article.index');
                 $item->authorize(
                     $this->auth->hasAccess('blog.article.index')
