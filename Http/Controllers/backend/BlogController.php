@@ -2,7 +2,6 @@
 
 namespace Modules\Blog\Http\Controllers\backend;
 
-use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
 use Modules\Blog\Http\Requests\ArticleRequest;
 use Modules\Blog\Repositories\ArticleRepository;
@@ -36,7 +35,7 @@ class BlogController extends AdminBaseController
     public function store(ArticleRequest $request)
     {
         $input = array_merge($request->input(), [
-            'user_id'   => Sentinel::getUser()->id,
+            'user_id'   => $this->auth->user()->id,
             'slug'      => $this->article->getSlugForTitle($request->title),
             'published' => (bool) $request->published,
         ]);
@@ -57,7 +56,7 @@ class BlogController extends AdminBaseController
     public function update(ArticleRequest $request, $slug)
     {
         $input = array_merge($request->input(), [
-            'user_id'   => Sentinel::getUser()->id,
+            'user_id'   => $this->auth->user()->id,
             'published' => (bool) $request->published,
             'pinned' => (bool) $request->pinned,
         ]);
