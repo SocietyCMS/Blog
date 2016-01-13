@@ -62,7 +62,7 @@ class Article extends Model implements HasMediaConversions
      */
     public function user()
     {
-        return $this->belongsTo('Modules\User\Entities\Sentinel\EloquentUser', 'user_id');
+        return $this->belongsTo('Modules\User\Entities\Entrust\EloquentUser', 'user_id');
     }
 
     /**
