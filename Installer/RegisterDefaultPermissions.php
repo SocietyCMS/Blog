@@ -7,7 +7,7 @@ class RegisterDefaultPermissions
 
     public $defaultPermissions = [
 
-        'blog.manage-article' => [
+        'manage-article' => [
             'display_name' => 'Manage all Articles',
             'description' => ''
         ],
