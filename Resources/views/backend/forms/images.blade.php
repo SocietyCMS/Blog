@@ -90,7 +90,7 @@
                 endpoint: '{{ apiRoute('v1', 'api.blog.article.image.store', ['article' => $article->slug])}}',
                 inputName: 'image',
                 customHeaders: {
-                    "Authorization": "Bearer {{$jwtoken}}"
+                    "Authorization": "Bearer " + societycms.jwtoken
                 }
             },
             dragAndDrop: {
