@@ -25,7 +25,7 @@
                     <div class="label">@lang('core::elements.progress.uploading resource', ['name' => trans('blog::blog.title.photos')])</div>
                 </div>
 
-                <div v-if="album.length > 0">
+                <div v-if="album && album.length > 0">
                     <div class="ui divider"></div>
 
                     <div class="ui grid qq-upload-drop-area" id="blogImages">
@@ -63,7 +63,7 @@
                     <div class="label">@lang('core::elements.progress.uploading resource', ['name' => trans('blog::blog.title.files')])</div>
                 </div>
 
-                <div v-if="files.length > 0">
+                <div v-if="files && files.length > 0">
                     <div class="ui divider"></div>
 
                     <table class="ui selectable table" id="blogFiles">

@@ -86,7 +86,7 @@
                     $('#uploadImageButton').hide();
                     $('#uploadImageProgrssbar').show();
                 },
-                onTotalProgress: function(totalUploadedBytes, totalBytes) {
+                onTotalProgress: function (totalUploadedBytes, totalBytes) {
                     $('#uploadImageProgrssbar').progress({
                         percent: Math.ceil(totalUploadedBytes / totalBytes * 100)
                     });
@@ -103,7 +103,8 @@
             data: {
                 album:null,
                 detailPhoto: null,
-                loaded: false
+                loaded: false,
+                meta:null
             },
             ready: function() {
 
