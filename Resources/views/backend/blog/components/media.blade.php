@@ -1,7 +1,5 @@
 <div class="ui styled fluid accordion">
 
-
-
         <div class="title">
             <i class="dropdown icon"></i>
             @lang('core::elements.action.add resource', ['name' => trans('blog::blog.title.photo')])

@@ -14,7 +14,7 @@
 
         @include('blog::backend.forms.article')
 
-        <div class="ui detail accordion field">
+        <div class="ui detail initialize accordion field">
             <div class="title">
                 <i class="icon dropdown"></i>
                 @lang('core::elements.button.optional details')
@@ -49,10 +49,6 @@
 @endsection
 
 @section('javascript')
-    <script>
-        $('.ui.detail.accordion')
-                .accordion();
-    </script>
 
     <script>
 

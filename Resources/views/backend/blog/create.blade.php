@@ -24,7 +24,3 @@
 
     </form>
 @endsection
-
-@section('javascript')
-
-@endsection
