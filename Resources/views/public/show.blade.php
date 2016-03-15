@@ -7,25 +7,25 @@
     {{$article->present()->createdAt}} by <b>{{$article->user->present()->fullname}}</b>
 @stop
 @section('meta')
-    <meta name="title" content="{{ $article->meta_title}}" />
-    <meta name="description" content="{{ $article->meta_description }}" />
+    <meta name="title" content="{{ $article->meta_title}}"/>
+    <meta name="description" content="{{ $article->meta_description }}"/>
 @stop
 
 @if($article->getFirstMedia('images'))
-    @section('header')
-        <div class="site-header blog-post-header">
+@section('header')
+    <div class="site-header blog-post-header">
 
+        <div class="header-gradient"></div>
+        <div class="header-image"
+             style="background-image: url({{$article->getFirstMediaUrl('images', 'cover900')}}); opacity: 0.7;"></div>
 
-                <div class="header-gradient"></div>
-                <div class="header-image" style="background-image: url({{$article->getFirstMediaUrl('images', 'cover900')}}); opacity: 0.5;"></div>
-
-
-            <div class="container">
-                <h1 class="site-title">{{ $article->title }}</h1>
-                <p class="lead site-description">{{$article->present()->createdAt}} by <b>{{$article->user->present()->fullname}}</b></p>
-            </div>
+        <div class="container">
+            <h1 class="site-title">{{ $article->title }}</h1>
+            <p class="lead site-description">{{$article->present()->createdAt}} by
+                <b>{{$article->user->present()->fullname}}</b></p>
         </div>
-    @stop
+    </div>
+@stop
 @endif
 
 @section('content')
