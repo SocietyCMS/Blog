@@ -50,6 +50,10 @@ class BlogController extends AdminBaseController
     {
         $article = $this->article->findBySlug($slug);
 
+        \JavaScript::put([
+            'blog' => ['article' => ['slug' => $article->slug]]
+        ]);
+
         return view('blog::backend.blog.edit', compact('article'));
     }
 

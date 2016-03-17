@@ -92,6 +92,22 @@ class ArticleController extends ApiBaseController
         return $this->response()->item($article, new ArticleTransformer());
     }
 
+    public function upload(Request $request, $slug)
+    {
+        $article = $this->article->findBySlug($slug);
+
+        $savedImage = $article->addMedia($request->files->get('files')[0])->toMediaLibrary('images');
+
+        $files=[
+            "files"=> [[
+                'url' => $savedImage->getUrl(),
+                'id' => 3
+                ]
+            ]];
+
+        return  json_encode(json_decode( json_encode($files)));
+    }
+
     /**
      * @param Request $request
      * @param         $slug

@@ -5,7 +5,8 @@ var WebpackPublishPlugin = require('../../WebpackPublishPlugin');
 module.exports = {
     context: __dirname + '/Resources/assets/js',
     entry: {
-        article: './article.js'
+        article: './article.js',
+        blog: './blog.js'
     },
 
     output: {

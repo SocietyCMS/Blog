@@ -11,9 +11,7 @@
 
 <div class="required field {{ $errors->has('body') ? 'error' : '' }}">
     <label>@lang('blog::blog.form.content')</label>
-    <div id="editor">
-        {!! old('content', isset($article)?$article->body:null) !!}
-    </div>
+    <textarea name="body" class="editable">{{ old('content', isset($article)?$article->body:null) }}</textarea>
     {!! $errors->first('body', '<div class="ui error message">:message</div>') !!}
 </div>
 
