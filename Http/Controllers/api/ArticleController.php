@@ -63,7 +63,7 @@ class ArticleController extends ApiBaseController
 
         $article = $this->article->create($input);
 
-        return $this->successCreated();
+        return $this->response()->item($article, new ArticleTransformer());
     }
 
     /**
@@ -76,6 +76,20 @@ class ArticleController extends ApiBaseController
         $article = $this->article->findBySlug($slug);
 
         return $this->response->item($article, new ArticleTransformer());
+    }
+
+
+    public function autosave(Request $request, $slug)
+    {
+        $input = array_merge($request->input(), [
+            'user_id'   => $this->auth->user()->id,
+            'published' => (bool) $request->published,
+            'pinned' => (bool) $request->pinned,
+        ]);
+
+        $article = $this->article->update($input, $this->article->findBySlug($slug)->id);
+
+        return $this->response()->item($article, new ArticleTransformer());
     }
 
     /**

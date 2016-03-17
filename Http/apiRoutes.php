@@ -9,6 +9,9 @@ $api->version('v1', function ($api) {
     ], function ($api) {
 
         $api->resource('article', 'ArticleController', ['only' => ['index', 'store', 'show', 'destroy']]);
+        
+        $api->post('article/{slug}/autosave', ['as' => 'api.blog.article.autosave', 'uses' => 'ArticleController@autosave']);
+        
         $api->resource('article.image', 'ArticleImageController',
             ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
         $api->resource('article.file', 'ArticleFileController',

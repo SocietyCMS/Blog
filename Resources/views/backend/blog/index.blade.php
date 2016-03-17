@@ -9,20 +9,20 @@
 
 @section('content')
 
-    <div class="ui blue segment">
-        <a href="{{route('backend::blog.article.create')}}"
-           class="fluid ui blue button">{{trans('core::elements.action.create resource', ['name'=>trans('blog::blog.title.article')])}}</a>
-    </div>
+    <a class="ui primary button" v-on:click="newArticleModal">
+        <i class="newspaper icon"></i>
+        {{trans('core::elements.action.create resource', ['name'=>trans('blog::blog.title.article')])}}
+    </a>
 
     <table class="ui selectable very compact celled table">
         <thead>
-        <tr>
-            <th>{{ trans('blog::blog.table.title') }}</th>
-            <th>{{ trans('blog::blog.table.author') }}</th>
-            <th>{{ trans('blog::blog.table.modified') }}</th>
-            <th>{{ trans('blog::blog.table.status') }}</th>
-            <th class="collapsing"></th>
-        </tr>
+            <tr>
+                <th>{{ trans('blog::blog.table.title') }}</th>
+                <th>{{ trans('blog::blog.table.author') }}</th>
+                <th>{{ trans('blog::blog.table.modified') }}</th>
+                <th>{{ trans('blog::blog.table.status') }}</th>
+                <th class="collapsing"></th>
+            </tr>
         </thead>
         <tbody>
         @foreach ($articles as $article)
@@ -82,15 +82,25 @@
         </tbody>
     </table>
 
-@stop
 
+    <div class="ui modal"  id="newArticleModal">
+        <div class="header"> Give your new Article a title</div>
+        <div class="content">
+            <div class="ui form">
+                <div class="ui field">
+                    <label>Title</label>
+                    <input type="text" placeholder="Album Title..." v-model="newArticle.title">
+                </div>
+
+                <div class="ui green inverted fluid button" v-on:click="createNewArticle" v-bind:class="{'disabled':!newArticle.title}">
+                    <i class="checkmark icon"></i>
+                    Create
+                </div>
+
+            </div>
+        </div>
+    </div>
+@endsection
 @section('javascript')
-    <script>
-
-        $('.dropdown')
-                .dropdown({
-                    // you can use any ui transition
-                    transition: 'drop'
-                });
-    </script>
+    <script src="{{\Pingpong\Modules\Facades\Module::asset('blog:js/article.js')}}"></script>
 @endsection
