@@ -13,7 +13,7 @@ var dragAndDropModule = new fineUploader.DragAndDrop({
 var fineUploaderBasicInstanceFiles = new fineUploader.FineUploaderBasic({
         button: document.getElementById('uploadFileButton'),
         request: {
-            endpoint: Vue.url(societycms.api.blog.article.file.store,{slug:societycms.blog.article.slug}),
+            endpoint: Vue.url(societycms.api.blog.article.file.store,{article:societycms.blog.article.slug}),
         inputName: 'file',
         customHeaders: {
             "Authorization": "Bearer " + societycms.jwtoken
@@ -50,7 +50,7 @@ var VueInstanceFile = new Vue({
     },
     ready: function () {
 
-        this.$http.get({slug:societycms.blog.article.slug}, societycms.api.blog.article.file.index, function (data, status, request) {
+        this.$http.get({article:societycms.blog.article.slug}, societycms.api.blog.article.file.index, function (data, status, request) {
 
             this.$set('files', data.data);
             this.$set('meta', data.meta);
@@ -82,7 +82,7 @@ var VueInstanceFile = new Vue({
 
             var resource = this.$resource(societycms.api.blog.article.file.destroy);
 
-            resource.delete({slug:societycms.blog.article.slug,id: file.id}, file, function (data, status, request) {
+            resource.delete({article:societycms.blog.article.slug,id: file.id}, file, function (data, status, request) {
                 this.files.$remove(file);
             }).error(function (data, status, request) {
             });

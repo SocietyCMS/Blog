@@ -73,7 +73,7 @@
 	var fineUploaderBasicInstanceImages = new fineUploader.FineUploaderBasic({
 	    button: document.getElementById('uploadImageButton'),
 	    request: {
-	        endpoint: Vue.url(societycms.api.blog.article.image.store, { slug: societycms.blog.article.slug }),
+	        endpoint: Vue.url(societycms.api.blog.article.cover.store, { article: societycms.blog.article.slug }),
 	        inputName: 'image',
 	        customHeaders: {
 	            "Authorization": "Bearer " + societycms.jwtoken
@@ -109,7 +109,7 @@
 	    },
 	    ready: function ready() {
 
-	        this.$http.get({ slug: societycms.blog.article.slug }, societycms.api.blog.article.image.index, function (data, status, request) {
+	        this.$http.get({ article: societycms.blog.article.slug }, societycms.api.blog.article.cover.index, function (data, status, request) {
 
 	            this.$set('album', data.data);
 	            this.$set('meta', data.meta);
@@ -126,9 +126,9 @@
 	        },
 	        deletePhoto: function deletePhoto() {
 
-	            var resource = this.$resource(societycms.api.blog.article.image.destroy);
+	            var resource = this.$resource(societycms.api.blog.article.cover.destroy);
 
-	            resource.delete({ slug: societycms.blog.article.slug, id: this.detailPhoto.id }, this.detailPhoto, function (data, status, request) {
+	            resource.delete({ article: societycms.blog.article.slug, id: this.detailPhoto.id }, this.detailPhoto, function (data, status, request) {
 	                this.album.pop(this.detailPhoto);
 	            }).error(function (data, status, request) {});
 	        }
@@ -161,7 +161,7 @@
 	var fineUploaderBasicInstanceFiles = new fineUploader.FineUploaderBasic({
 	    button: document.getElementById('uploadFileButton'),
 	    request: {
-	        endpoint: Vue.url(societycms.api.blog.article.file.store, { slug: societycms.blog.article.slug }),
+	        endpoint: Vue.url(societycms.api.blog.article.file.store, { article: societycms.blog.article.slug }),
 	        inputName: 'file',
 	        customHeaders: {
 	            "Authorization": "Bearer " + societycms.jwtoken
@@ -198,7 +198,7 @@
 	    },
 	    ready: function ready() {
 
-	        this.$http.get({ slug: societycms.blog.article.slug }, societycms.api.blog.article.file.index, function (data, status, request) {
+	        this.$http.get({ article: societycms.blog.article.slug }, societycms.api.blog.article.file.index, function (data, status, request) {
 
 	            this.$set('files', data.data);
 	            this.$set('meta', data.meta);
@@ -227,7 +227,7 @@
 
 	            var resource = this.$resource(societycms.api.blog.article.file.destroy);
 
-	            resource.delete({ slug: societycms.blog.article.slug, id: file.id }, file, function (data, status, request) {
+	            resource.delete({ article: societycms.blog.article.slug, id: file.id }, file, function (data, status, request) {
 	                this.files.$remove(file);
 	            }).error(function (data, status, request) {});
 	        }

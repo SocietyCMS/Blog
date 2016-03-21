@@ -15,10 +15,10 @@ $api->version('v1', function ($api) {
         $api->post('article/{slug}/image', ['as' => 'api.blog.article.image.upload', 'uses' => 'ArticleController@uploadImage']);
         $api->delete('article/{slug}/image', ['as' => 'api.blog.article.image.delete', 'uses' => 'ArticleController@deleteImage']);
 
-        $api->resource('article.image', 'ArticleImageController',
-            ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+        $api->resource('article.cover', 'ArticleCoverController',
+            ['only' => ['index', 'store', 'show', 'destroy']]);
         $api->resource('article.file', 'ArticleFileController',
-            ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+            ['only' => ['index', 'store', 'show', 'destroy']]);
 
     });
 });

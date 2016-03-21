@@ -100,7 +100,7 @@ class ArticleController extends ApiBaseController
 
         $files = [
             "files" => [[
-                'url' => $savedImage->getUrl('original400'),
+                'url' => $savedImage->getUrl('originalHiRes'),
                 'id'  => $savedImage->id,
             ],
             ]];
