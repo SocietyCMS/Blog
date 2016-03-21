@@ -1,19 +1,17 @@
 $('.editable').mediumInsert({
     editor: editor,
-    addons: { // (object) Addons configuration
-        images: { // (object) Image addon configuration
-            label: '<i class="camera retro icon"></i>', // (string) A label for an image addon
-            deleteScript: 'delete.php', // (string) A relative path to a delete script
-            deleteMethod: 'POST',
-            fileDeleteOptions: {}, // (object) extra parameters send on the delete ajax request, see http://api.jquery.com/jquery.ajax/
-            preview: true, // (boolean) Show an image before it is uploaded (only in browsers that support this feature)
-            captions: true, // (boolean) Enable captions
-            captionPlaceholder: 'Type caption for image (optional)', // (string) Caption placeholder
-            autoGrid: 3, // (integer) Min number of images that automatically form a grid
-            fileUploadOptions: { // (object) File upload configuration. See https://github.com/blueimp/jQuery-File-Upload/wiki/Options
-                url: Vue.url(societycms.api.blog.article.upload, {slug: societycms.blog.article.slug}),
+    addons: {
+        images: {
+            label: '<i class="camera retro icon"></i>',
+            deleteScript: Vue.url(societycms.api.blog.article.image.delete, {slug: societycms.blog.article.slug, token: societycms.jwtoken}),
+            deleteMethod: 'DELETE',
+            preview: false,
+            captions: true,
+            captionPlaceholder: 'Type caption for image (optional)',
+            autoGrid: 3,
+            fileUploadOptions: {
+                url: Vue.url(societycms.api.blog.article.image.upload, {slug: societycms.blog.article.slug}),
                 acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-                formData: {example: 'test'},
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("Authorization", "Bearer " + societycms.jwtoken);
                 }

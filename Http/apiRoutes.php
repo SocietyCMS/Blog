@@ -12,7 +12,8 @@ $api->version('v1', function ($api) {
         
         $api->post('article/{slug}/autosave', ['as' => 'api.blog.article.autosave', 'uses' => 'ArticleController@autosave']);
 
-        $api->post('article/{slug}/upload', ['as' => 'api.blog.article.upload', 'uses' => 'ArticleController@upload']);
+        $api->post('article/{slug}/image', ['as' => 'api.blog.article.image.upload', 'uses' => 'ArticleController@uploadImage']);
+        $api->delete('article/{slug}/image', ['as' => 'api.blog.article.image.delete', 'uses' => 'ArticleController@deleteImage']);
 
         $api->resource('article.image', 'ArticleImageController',
             ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
