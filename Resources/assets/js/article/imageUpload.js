@@ -21,6 +21,7 @@ var fineUploaderBasicInstanceImages = new fineUploader.FineUploaderBasic({
     },
     callbacks: {
     onComplete: function (id, name, responseJSON) {
+        console.log(responseJSON);
         VueInstanceImage.addPhoto(responseJSON)
     },
     onUpload: function() {
@@ -49,7 +50,11 @@ var VueInstanceImage = new Vue({
     },
     ready: function() {
 
-        this.$http.get({article:societycms.blog.article.slug}, societycms.api.blog.article.cover.index, function (data, status, request) {
+        var resource = this.$resource(societycms.api.blog.article.cover.index);
+
+        resource.get({article:societycms.blog.article.slug}, function (data, status, request) {
+
+            console.log(data, status, request)
 
             this.$set('album', data.data);
             this.$set('meta', data.meta);
@@ -71,7 +76,7 @@ var VueInstanceImage = new Vue({
 
             var resource = this.$resource(societycms.api.blog.article.cover.destroy);
 
-            resource.delete({article:societycms.blog.article.slug, id: this.detailPhoto.id}, this.detailPhoto, function (data, status, request) {
+            resource.delete({article:societycms.blog.article.slug}, this.detailPhoto, function (data, status, request) {
                 this.album.pop(this.detailPhoto);
             }).error(function (data, status, request) {
             });

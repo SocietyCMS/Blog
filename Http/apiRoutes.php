@@ -17,6 +17,7 @@ $api->version('v1', function ($api) {
 
         $api->resource('article.cover', 'ArticleCoverController',
             ['only' => ['index', 'store', 'show', 'destroy']]);
+
         $api->resource('article.file', 'ArticleFileController',
             ['only' => ['index', 'store', 'show', 'destroy']]);
 

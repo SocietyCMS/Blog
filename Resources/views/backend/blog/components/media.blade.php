@@ -2,7 +2,7 @@
 
         <div class="title">
             <i class="dropdown icon"></i>
-            @lang('core::elements.action.add resource', ['name' => trans('blog::blog.title.photo')])
+            @lang('core::elements.action.add resource', ['name' => trans('blog::blog.title.cover')])
         </div>
         <div class="ui content">
 
@@ -10,28 +10,27 @@
 
                 <div class="ui basic button" id="uploadImageButton">
                     <i class="icon photo"></i>
-                    @lang('core::elements.action.add resource', ['name' => trans('blog::blog.title.photo')])
+                    @lang('core::elements.action.add resource', ['name' => trans('blog::blog.title.cover')])
                 </div>
 
                 <div class="ui red basic right floated button" id="deleteAlbumButton" style="display: none">
-                    @lang('core::elements.action.delete resource', ['name' => trans('blog::blog.title.photo')])
+                    @lang('core::elements.action.delete resource', ['name' => trans('blog::blog.title.cover')])
                 </div>
-
 
                 <div class="ui indicating right floated progress qq-drop-processing-selector qq-drop-processing" id="uploadImageProgrssbar" style="display: none">
                     <div class="bar"></div>
-                    <div class="label">@lang('core::elements.progress.uploading resource', ['name' => trans('blog::blog.title.photos')])</div>
+                    <div class="label">@lang('core::elements.progress.uploading resource', ['name' => trans('blog::blog.title.cover')])</div>
                 </div>
 
                 <div v-if="album && album.length > 0">
                     <div class="ui divider"></div>
 
                     <div class="ui grid qq-upload-drop-area" id="blogImages">
-                        <div class="eight wide tablet two wide computer photo column" v-for="photo in album"
+                        <div class="photo" v-for="photo in album"
                              v-bind:class="{'selected': photo == detailPhoto }" v-on:click="detail(photo)">
                             <a class="ui basic photo raised segment">
-                                <div class="photo image"><img class="ui small bordered image"
-                                                              v-bind:src="photo.thumbnail.medium"></div>
+                                <div class="photo image"><img class="ui medium bordered image"
+                                                              v-bind:src="photo.thumbnail.cover"></div>
                             </a>
                         </div>
                     </div>
