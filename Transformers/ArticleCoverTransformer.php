@@ -16,7 +16,9 @@ class ArticleCoverTransformer extends Fractal\TransformerAbstract
             'size'      => $articleImages->size,
             'image'     => $articleImages->getUrl(),
             'thumbnail' => [
-                'cover'  => $articleImages->getUrl('cover'),
+                'small'  => $articleImages->getUrl('small'),
+                'medium'  => $articleImages->getUrl('medium'),
+                'large'  => $articleImages->getUrl('large'),
             ],
         ];
     }

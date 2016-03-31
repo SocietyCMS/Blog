@@ -36,6 +36,12 @@
                             {{$article->title}}
                         </a></b>
 
+                    @if($article->getMedia('cover')->count() > 0)
+                        <div class="ui horizontal right floated small label">
+                            <i class="camera retro icon"></i> @lang('blog::blog.title.cover')
+                        </div>
+                    @endif
+
                     @if($article->getMedia('images')->count() > 0)
                         <div class="ui horizontal right floated small label">
                             <i class="photo icon"></i> @lang('blog::blog.title.photos')

@@ -26,25 +26,19 @@ class ArticleCoverController extends ApiBaseController
     {
         $article = $this->article->findBySlug($slug);
 
-        return $this->response->collection($article->getMedia('cover'), new ArticleCoverTransformer());
+        $cover = $article->getFirstMedia('cover')?:null;
+
+        return $this->response->item($cover, new ArticleCoverTransformer());
     }
 
     public function store(MediaImageRequest $request, $slug)
     {
         $article = $this->article->findBySlug($slug);
 
+        $article->clearMediaCollection('cover');
         $savedImage = $article->addMedia($request->files->get('image'))->toMediaLibrary('cover');
 
-        $resourceUrl = app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('api.blog.article.cover.show', ['article' => $slug, 'image' => $savedImage->id]);
-
         return $this->response->item($savedImage, new ArticleCoverTransformer());
-    }
-
-    public function show(Request $request, $slug, $image)
-    {
-        $article = $this->article->findBySlug($slug);
-
-        return $this->response->item($article->getMedia('cover')->keyBy('id')->get($image), new ArticleCoverTransformer());
     }
 
     public function destroy(Request $request, $slug)

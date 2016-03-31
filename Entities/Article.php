@@ -88,8 +88,16 @@ class Article extends Model implements HasMediaConversions
      */
     public function registerMediaConversions()
     {
-        $this->addMediaConversion('cover')
-            ->setManipulations(['w' => 1080, 'h' => 200,  'fit' => 'crop'])
+        $this->addMediaConversion('small')
+            ->setManipulations(['w' => 300, 'h' => 55,  'fit' => 'crop'])
+            ->performOnCollections('cover');
+
+        $this->addMediaConversion('medium')
+            ->setManipulations(['w' => 800, 'h' => 148,  'fit' => 'crop'])
+            ->performOnCollections('cover');
+
+        $this->addMediaConversion('large')
+            ->setManipulations(['w' => 1920, 'h' => 355,  'fit' => 'crop'])
             ->performOnCollections('cover');
 
         $this->registerMediaConversionsFromTrait();

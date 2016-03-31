@@ -59,7 +59,7 @@
 	'use strict';
 
 	var dragAndDropModule = new fineUploader.DragAndDrop({
-	    dropZoneElements: [document.getElementById('blogImages')],
+	    dropZoneElements: [document.getElementById('blogCovers')],
 	    classes: {
 	        dropActive: "cssClassToAddToDropZoneOnEnter"
 	    },
@@ -73,7 +73,7 @@
 	var fineUploaderBasicInstanceImages = new fineUploader.FineUploaderBasic({
 	    button: document.getElementById('uploadImageButton'),
 	    request: {
-	        endpoint: Vue.url(societycms.api.blog.article.cover.store, { article: societycms.blog.article.slug }),
+	        endpoint: Vue.url(societycms.api.blog.article.cover.store, { slug: societycms.blog.article.slug }),
 	        inputName: 'image',
 	        customHeaders: {
 	            "Authorization": "Bearer " + societycms.jwtoken
@@ -81,7 +81,6 @@
 	    },
 	    callbacks: {
 	        onComplete: function onComplete(id, name, responseJSON) {
-	            console.log(responseJSON);
 	            VueInstanceImage.addPhoto(responseJSON);
 	        },
 	        onUpload: function onUpload() {
@@ -103,8 +102,7 @@
 	var VueInstanceImage = new Vue({
 	    el: '#blogImagesSegment',
 	    data: {
-	        album: null,
-	        detailPhoto: null,
+	        cover: null,
 	        loaded: false,
 	        meta: null
 	    },
@@ -112,29 +110,20 @@
 
 	        var resource = this.$resource(societycms.api.blog.article.cover.index);
 
-	        resource.get({ article: societycms.blog.article.slug }, function (data, status, request) {
-
-	            console.log(data, status, request);
-
-	            this.$set('album', data.data);
+	        resource.get({ slug: societycms.blog.article.slug }, function (data, status, request) {
+	            this.$set('cover', data.data);
 	            this.$set('meta', data.meta);
 	            this.$set('loaded', true);
 	        }).error(function (data, status, request) {});
 	    },
 	    methods: {
-	        detail: function detail(photo) {
-	            this.detailPhoto = photo;
-	            $('#deleteAlbumButton').show();
-	        },
 	        addPhoto: function addPhoto(photo) {
-	            this.album.push(photo.data);
+	            this.cover = photo.data;
 	        },
 	        deletePhoto: function deletePhoto() {
-
 	            var resource = this.$resource(societycms.api.blog.article.cover.destroy);
-
-	            resource.delete({ article: societycms.blog.article.slug }, this.detailPhoto, function (data, status, request) {
-	                this.album.pop(this.detailPhoto);
+	            resource.delete({ slug: societycms.blog.article.slug }, function (data, status, request) {
+	                this.cover = null;
 	            }).error(function (data, status, request) {});
 	        }
 	    }
@@ -166,7 +155,7 @@
 	var fineUploaderBasicInstanceFiles = new fineUploader.FineUploaderBasic({
 	    button: document.getElementById('uploadFileButton'),
 	    request: {
-	        endpoint: Vue.url(societycms.api.blog.article.file.store, { article: societycms.blog.article.slug }),
+	        endpoint: Vue.url(societycms.api.blog.article.file.store, { slug: societycms.blog.article.slug }),
 	        inputName: 'file',
 	        customHeaders: {
 	            "Authorization": "Bearer " + societycms.jwtoken
@@ -203,28 +192,15 @@
 	    },
 	    ready: function ready() {
 
-	        this.$http.get({ article: societycms.blog.article.slug }, societycms.api.blog.article.file.index, function (data, status, request) {
+	        var resource = this.$resource(societycms.api.blog.article.file.index);
 
+	        resource.get({ slug: societycms.blog.article.slug }, function (data, status, request) {
 	            this.$set('files', data.data);
 	            this.$set('meta', data.meta);
 	            this.$set('loaded', true);
 	        }).error(function (data, status, request) {});
 	    },
 	    methods: {
-	        fileClass: function fileClass(mime) {
-
-	            if (semanticFileTypeClassMap[mime]) {
-	                return semanticFileTypeClassMap[mime];
-	            }
-	            return "file outline";
-	        },
-	        humanReadableFilesize: function humanReadableFilesize(size) {
-	            return filesize(size, { round: 0 });
-	        },
-	        detail: function detail(file) {
-	            this.detailFile = file;
-	            $('#deleteFileButton').show();
-	        },
 	        addFile: function addFile(file) {
 	            this.files.push(file.data);
 	        },
@@ -232,7 +208,7 @@
 
 	            var resource = this.$resource(societycms.api.blog.article.file.destroy);
 
-	            resource.delete({ article: societycms.blog.article.slug, id: file.id }, file, function (data, status, request) {
+	            resource.delete({ slug: societycms.blog.article.slug, id: file.id }, file, function (data, status, request) {
 	                this.files.$remove(file);
 	            }).error(function (data, status, request) {});
 	        }
@@ -241,9 +217,6 @@
 	});
 
 	$('#uploadFileProgrssbar').hide();
-	$('#deleteAlbumButton').click(function () {
-	    VueInstanceFile.deleteFile();
-	});
 
 /***/ },
 /* 3 */
@@ -269,27 +242,24 @@
 	                    xhr.setRequestHeader("Authorization", "Bearer " + societycms.jwtoken);
 	                }
 	            },
-	            styles: { // (object) Available image styles configuration
-	                wide: { // (object) Image style configuration. Key is used as a class name added to an image, when the style is selected (.medium-insert-images-wide)
-	                    label: '<span class="fa fa-align-justify"></span>', // (string) A label for a style
-	                    added: function added($el) {}, // (function) Callback function called after the style was selected. A parameter $el is a current active paragraph (.medium-insert-active)
-	                    removed: function removed($el) {} // (function) Callback function called after a different style was selected and this one was removed. A parameter $el is a current active paragraph (.medium-insert-active)
+	            styles: {
+	                wide: {
+	                    label: '<i class="align justify icon"></i>'
 	                },
 	                left: {
-	                    label: '<span class="fa fa-align-left"></span>'
+	                    label: '<i class="align left icon"></i>'
 	                },
 	                right: {
-	                    label: '<span class="fa fa-align-right"></span>'
+	                    label: '<i class="align right icon"></i>'
 	                },
 	                grid: {
-	                    label: '<span class="fa fa-th"></span>'
+	                    label: '<i class="grid layout icon"></i>'
 	                }
 	            },
-	            actions: { // (object) Actions for an optional second toolbar
-	                remove: { // (object) Remove action configuration
-	                    label: '<span class="fa fa-times"></span>', // (string) Label for an action
+	            actions: {
+	                remove: {
+	                    label: '<i class="remove icon"></i>',
 	                    clicked: function clicked($el) {
-	                        // (function) Callback function called when an action is selected
 	                        var $event = $.Event('keydown');
 
 	                        $event.which = 8;
@@ -301,32 +271,31 @@
 	                acceptFileTypesError: 'This file is not in a supported format: ',
 	                maxFileSizeError: 'This file is too big: '
 	            },
-	            uploadCompleted: function uploadCompleted($el, data) {} // (function) Callback function called when upload is completed
+	            uploadCompleted: function uploadCompleted($el, data) {}
 	        },
-	        embeds: { // (object) Embeds addon configuration
-	            label: '<span class="fa fa-youtube-play"></span>', // (string) A label for an embeds addon
-	            placeholder: 'Paste a YouTube, Vimeo, Facebook, Twitter or Instagram link and press Enter', // (string) Placeholder displayed when entering URL to embed
-	            captions: true, // (boolean) Enable captions
-	            captionPlaceholder: 'Type caption (optional)', // (string) Caption placeholder
-	            oembedProxy: 'http://medium.iframe.ly/api/oembed?iframe=1', // (string/null) URL to oEmbed proxy endpoint, such as Iframely, Embedly or your own. You are welcome to use "http://medium.iframe.ly/api/oembed?iframe=1" for your dev and testing needs, courtesy of Iframely. *Null* will make the plugin use pre-defined set of embed rules without making server calls.
-	            styles: { // (object) Available embeds styles configuration
-	                wide: { // (object) Embed style configuration. Key is used as a class name added to an embed, when the style is selected (.medium-insert-embeds-wide)
-	                    label: '<span class="fa fa-align-justify"></span>', // (string) A label for a style
-	                    added: function added($el) {}, // (function) Callback function called after the style was selected. A parameter $el is a current active paragraph (.medium-insert-active)
-	                    removed: function removed($el) {} // (function) Callback function called after a different style was selected and this one was removed. A parameter $el is a current active paragraph (.medium-insert-active)
+	        embeds: {
+	            label: '<i class="youtube play icon"></i>',
+	            placeholder: 'Paste a YouTube, Vimeo, Facebook, Twitter or Instagram link and press Enter',
+	            captions: true,
+	            captionPlaceholder: 'Type caption (optional)',
+	            oembedProxy: 'http://medium.iframe.ly/api/oembed?iframe=1',
+	            styles: {
+	                wide: {
+	                    label: '<i class="align justify icon"></i>',
+	                    added: function added($el) {},
+	                    removed: function removed($el) {}
 	                },
 	                left: {
-	                    label: '<span class="fa fa-align-left"></span>'
+	                    label: '<i class="align left icon"></i>'
 	                },
 	                right: {
-	                    label: '<span class="fa fa-align-right"></span>'
+	                    label: '<i class="align right icon"></i>'
 	                }
 	            },
-	            actions: { // (object) Actions for an optional second toolbar
-	                remove: { // (object) Remove action configuration
-	                    label: '<span class="fa fa-times"></span>', // (string) Label for an action
+	            actions: {
+	                remove: {
+	                    label: '<i class="remove icon"></i>',
 	                    clicked: function clicked($el) {
-	                        // (function) Callback function called when an action is selected
 	                        var $event = $.Event('keydown');
 
 	                        $event.which = 8;

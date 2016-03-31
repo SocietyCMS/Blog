@@ -54,9 +54,7 @@ class ArticleFileController extends ApiBaseController
         $savedFile = $article->addMedia($request->files->get('file'))
             ->withCustomProperties(['mime-type' => $request->files->get('file')->getMimeType()])
             ->toMediaLibrary('files');
-
-        $resourceUrl = app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('api.blog.article.file.show', ['article' => $slug, 'file' => $savedFile->id]);
-
+        
         return $this->response->item($savedFile, new ArticleFilesTransformer());
     }
 

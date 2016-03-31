@@ -13,7 +13,7 @@
                     @lang('core::elements.action.add resource', ['name' => trans('blog::blog.title.cover')])
                 </div>
 
-                <div class="ui red basic right floated button" id="deleteAlbumButton" style="display: none">
+                <div class="ui red basic right floated button" id="deleteAlbumButton"  v-show="cover && cover.id">
                     @lang('core::elements.action.delete resource', ['name' => trans('blog::blog.title.cover')])
                 </div>
 
@@ -22,17 +22,11 @@
                     <div class="label">@lang('core::elements.progress.uploading resource', ['name' => trans('blog::blog.title.cover')])</div>
                 </div>
 
-                <div v-if="album && album.length > 0">
+                <div v-if="cover && cover.id">
                     <div class="ui divider"></div>
 
-                    <div class="ui grid qq-upload-drop-area" id="blogImages">
-                        <div class="photo" v-for="photo in album"
-                             v-bind:class="{'selected': photo == detailPhoto }" v-on:click="detail(photo)">
-                            <a class="ui basic photo raised segment">
-                                <div class="photo image"><img class="ui medium bordered image"
-                                                              v-bind:src="photo.thumbnail.cover"></div>
-                            </a>
-                        </div>
+                    <div class="ui grid qq-upload-drop-area" id="blogCovers">
+                        <img class="ui big centered image" v-bind:src="cover.thumbnail.medium">
                     </div>
 
                 </div>
@@ -52,8 +46,6 @@
                     <i class="icon photo"></i>
                     @lang('core::elements.action.add resource', ['name' => trans('blog::blog.title.file')])
                 </div>
-                <div class="ui red basic right floated button" id="deleteFileButton"
-                     style="display: none"> @lang('core::elements.action.delete resource', ['name' => trans('blog::blog.title.photo')])</div>
 
                 <div class="ui indicating right floated progress" id="uploadFileProgrssbar" style="display: none">
                     <div class="bar"></div>
@@ -67,10 +59,11 @@
                         <tbody>
                         <tr v-for="file in files">
                             <td>
-                                <i class="@{{ fileClass(file.mime_type) }} icon"></i> @{{ file.file_name  }}
+                                <i v-bind:class="file.mime_type | semanticFileTypeClass" class="icon"></i>
+                                @{{ file.file_name  }}
                             </td>
                             <td>
-                                @{{ humanReadableFilesize(file.size)  }}
+                                @{{ file.size | humanReadableFilesize }}
                             </td>
                             <td class="right aligned">
                                 <a class="ui basic icon button" v-on:click="deleteFile(file)">
