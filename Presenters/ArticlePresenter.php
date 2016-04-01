@@ -10,7 +10,8 @@ class ArticlePresenter extends Presenter
 {
     public function summary()
     {
-        return Str::words($this->body, 50);
+        $html = new \Html2Text\Html2Text($this->body);
+        return Str::words($html->getText(), 50);
     }
 
     /**
