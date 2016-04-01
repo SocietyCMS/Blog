@@ -6,6 +6,8 @@ return [
         'article'        => 'Article',
         'photo'          => 'Photo',
         'photos'         => 'Photos',
+        'cover'          => 'Cover',
+        'covers'         => 'Covers',
         'file'           => 'File',
         'files'          => 'Files',
         'all blog posts' => 'All Blog Posts',

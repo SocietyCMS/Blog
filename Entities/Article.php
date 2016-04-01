@@ -20,7 +20,9 @@ class Article extends Model implements HasMediaConversions
     use RecordsActivity;
     use PresentableTrait;
 
-    use baseMediaConversions;
+    use baseMediaConversions {
+        registerMediaConversions as registerMediaConversionsFromTrait;
+    }
 
     /**
      * Presenter Class.
@@ -79,5 +81,25 @@ class Article extends Model implements HasMediaConversions
     public function tags()
     {
         return $this->belongsToMany('Modules\Blog\Entities\Tag', 'blog__articles_tags');
+    }
+
+    /**
+     *
+     */
+    public function registerMediaConversions()
+    {
+        $this->addMediaConversion('small')
+            ->setManipulations(['w' => 300, 'h' => 55,  'fit' => 'crop'])
+            ->performOnCollections('cover');
+
+        $this->addMediaConversion('medium')
+            ->setManipulations(['w' => 800, 'h' => 148,  'fit' => 'crop'])
+            ->performOnCollections('cover');
+
+        $this->addMediaConversion('large')
+            ->setManipulations(['w' => 1920, 'h' => 355,  'fit' => 'crop'])
+            ->performOnCollections('cover');
+
+        $this->registerMediaConversionsFromTrait();
     }
 }

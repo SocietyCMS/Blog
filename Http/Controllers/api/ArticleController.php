@@ -29,7 +29,7 @@ class ArticleController extends ApiBaseController
     /**
      * ArticleController constructor.
      * @param ArticleRepository $article
-     * @param Authentication    $auth
+     * @param Authentication $auth
      */
     public function __construct(ArticleRepository $article, Authentication $auth)
     {
@@ -58,12 +58,12 @@ class ArticleController extends ApiBaseController
         $input = array_merge($request->input(), [
             'user_id'   => $this->auth->check()->id,
             'slug'      => $this->article->getSlugForTitle($request->title),
-            'published' => (bool) $request->published,
+            'published' => (bool)$request->published,
         ]);
 
         $article = $this->article->create($input);
 
-        return $this->successCreated();
+        return $this->response()->item($article, new ArticleTransformer());
     }
 
     /**
@@ -76,6 +76,45 @@ class ArticleController extends ApiBaseController
         $article = $this->article->findBySlug($slug);
 
         return $this->response->item($article, new ArticleTransformer());
+    }
+
+
+    public function autosave(Request $request, $slug)
+    {
+        $input = array_merge($request->input(), [
+            'user_id'   => $this->auth->user()->id,
+            'published' => (bool)$request->published,
+            'pinned'    => (bool)$request->pinned,
+        ]);
+
+        $article = $this->article->update($input, $this->article->findBySlug($slug)->id);
+
+        return $this->response()->item($article, new ArticleTransformer());
+    }
+
+    public function uploadImage(Request $request, $slug)
+    {
+        $article = $this->article->findBySlug($slug);
+
+        $savedImage = $article->addMedia($request->files->get('files')[0])->toMediaLibrary('images');
+
+        $files = [
+            "files" => [[
+                'url' => $savedImage->getUrl('originalHiRes'),
+                'id'  => $savedImage->id,
+            ],
+            ]];
+
+        return json_encode(json_decode(json_encode($files)));
+    }
+
+    public function deleteImage(Request $request, $slug)
+    {
+        $article = $this->article->findBySlug($slug);
+        preg_match('~\/media\/(.*?)\/~', $request->input('file'), $image);
+        $article->getMedia('images')->keyBy('id')->get($image[1])->delete();
+
+        return $this->response->noContent();
     }
 
     /**
