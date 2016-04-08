@@ -33,11 +33,6 @@ return [
             'body'  => 'body',
         ],
     ],
-    'category' => [
-        'title'     => 'Category and Tags',
-        'tags'      => 'Tags',
-        'category'  => 'Category',
-    ],
     'messages' => [
         'no articles' => 'No blog posts yet. You can add one with the button above.',
     ],

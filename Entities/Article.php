@@ -68,22 +68,6 @@ class Article extends Model implements HasMediaConversions
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function category()
-    {
-        return $this->hasOne('Modules\Blog\Entities\Category');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function tags()
-    {
-        return $this->belongsToMany('Modules\Blog\Entities\Tag', 'blog__articles_tags');
-    }
-
-    /**
      *
      */
     public function registerMediaConversions()

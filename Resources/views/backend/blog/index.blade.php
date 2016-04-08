@@ -108,5 +108,5 @@
     </div>
 @endsection
 @section('javascript')
-    <script src="{{\Pingpong\Modules\Facades\Module::asset('blog:js/blog.js')}}"></script>
+    <script src="{{\Pingpong\Modules\Facades\Module::asset('blog:js/page.js')}}"></script>
 @endsection

@@ -1,7 +1,7 @@
 {
   "name": "Blog",
   "alias": "blog",
-  "description": "A simple blog module with categories and tags",
+  "description": "A simple blog module.",
   "keywords": [],
   "version": "0.0.1",
   "active": 1,
