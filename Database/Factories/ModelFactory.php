@@ -16,13 +16,11 @@ $factory->define(\Modules\Blog\Entities\Article::class, function (Faker\Generato
     return [
         'title' => $title = $faker->sentence,
         'slug' => Str::slug($title),
-        'body' => $faker->paragraph(15),
+        'body' => $faker->paragraphs($faker->numberBetween(2, 20) , true),
         'published' => $faker->boolean(80),
         'pinned' => $faker->boolean(10),
         'user_id' => $faker->randomElement(\Modules\User\Entities\Entrust\EloquentUser::all()->lists('id')->toArray()),
         'created_at' => $start = $faker->dateTimeThisYear,
         'updated_at' => $faker->dateTimeBetween($start),
-
-
     ];
 });

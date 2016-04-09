@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Modules\Core\Traits\Factory\useFactories;
 
-class BlogTableSeeder extends Seeder
+class DemoTableSeeder extends Seeder
 {
     use useFactories;
     /**
@@ -19,7 +19,6 @@ class BlogTableSeeder extends Seeder
     {
         Model::unguard();
         DB::table('blog__articles')->delete();
-
         $this->factory(\Modules\Blog\Entities\Article::class, 12)->create();
     }
 }
