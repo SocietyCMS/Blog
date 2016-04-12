@@ -26,7 +26,7 @@ class DemoTableSeeder extends Seeder
             ->each(function($article) {
                 $faker = Factory::create();
                 if($faker->boolean(60)) {
-                    $image = $faker->image(storage_path('temp'), 1920, 1080);
+                    $image = $faker->image('/tmp', 1920, 1080);
                     $article->clearMediaCollection('cover');
                     $article->addMedia($image)->toMediaLibrary('cover');
                 }
