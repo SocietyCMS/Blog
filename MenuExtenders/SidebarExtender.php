@@ -38,7 +38,7 @@ class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
                 $item->weight(10);
                 $item->route('backend::blog.article.index');
                 $item->authorize(
-                    $this->auth->can('permission:blog::manage-article')
+                    $this->auth->can('blog::manage-article')
                 );
             });
 
