@@ -16,12 +16,11 @@ class CreateArticlesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('slug');
-            $table->text('body');
+            $table->text('body')->nullable();
             $table->boolean('published')->default(0);
             $table->boolean('pinned')->default(0);
-            $table->string('template');
+            $table->string('template')->nullable();
             $table->integer('user_id');
-            $table->integer('category_id')->index();
             $table->timestamps();
         });
     }
