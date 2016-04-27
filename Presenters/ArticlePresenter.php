@@ -21,10 +21,7 @@ class ArticlePresenter extends Presenter
      */
     public function createdAt()
     {
-        $created = $this->created_at;
-
-        return Carbon::createFromFormat('Y-m-d H:i:s', $created)
-            ->formatLocalized('%d %b. %Y');
+        return $this->created_at->formatLocalized('%d %b. %Y');
     }
 
     /**
@@ -34,9 +31,6 @@ class ArticlePresenter extends Presenter
      */
     public function updatedAt()
     {
-        $updated = $this->updated_at;
-
-        return Carbon::createFromFormat('Y-m-d H:i:s', $updated)
-            ->formatLocalized('%d %b. %Y');
+        return $this->updated_at->formatLocalized('%d %B. %Y');
     }
 }
