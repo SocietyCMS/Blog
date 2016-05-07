@@ -5,7 +5,7 @@ namespace Modules\Blog\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
 use Modules\Core\Traits\Media\baseMediaConversions;
-use Modules\User\Traits\Activity\RecordsActivity;
+use Modules\Core\Traits\Activity\RecordsActivity;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
