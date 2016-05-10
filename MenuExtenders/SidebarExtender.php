@@ -34,7 +34,7 @@ class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
         $menu->group(trans('core::sidebar.content'), function (Group $group) {
             $group->weight(10);
 
-            $group->item(trans('blog::blog.title.blog'), function (Item $item) {
+            $group->item(trans('blog::module.title'), function (Item $item) {
                 $item->weight(10);
                 $item->route('backend::blog.article.index');
                 $item->authorize(
