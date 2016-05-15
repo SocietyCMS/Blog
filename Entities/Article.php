@@ -4,6 +4,7 @@ namespace Modules\Blog\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
+use Modules\Core\Traits\Entities\RelatesToUser;
 use Modules\Core\Traits\Media\baseMediaConversions;
 use Modules\Core\Traits\Activity\RecordsActivity;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -20,6 +21,8 @@ class Article extends Model implements HasMediaConversions
     use RecordsActivity;
     use PresentableTrait;
 
+    use RelatesToUser;
+    
     use baseMediaConversions {
         registerMediaConversions as registerMediaConversionsFromTrait;
     }
@@ -56,16 +59,6 @@ class Article extends Model implements HasMediaConversions
      * @var string
      */
     protected static $templatePath = 'blog::backend.activities';
-
-    /**
-     * User relation.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
-    {
-        return $this->belongsTo('Modules\User\Entities\Entrust\EloquentUser', 'user_id');
-    }
 
     /**
      *
