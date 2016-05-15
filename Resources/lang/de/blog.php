@@ -33,6 +33,9 @@ return [
             'body'  => 'inhalt',
         ],
     ],
+    'modal'      => [
+        'create article' => 'Gib deinem Artikel einen Titel.',
+    ],
     'messages' => [
         'no articles' => 'Noch kein Blogeinträge. Du kannst aber einen erstellen mit der Schaltfäche oben.',
     ],

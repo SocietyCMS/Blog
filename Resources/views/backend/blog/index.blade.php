@@ -90,17 +90,17 @@
 
 
     <div class="ui modal"  id="newArticleModal">
-        <div class="header"> Give your new Article a title</div>
+        <div class="header">{{trans('blog::blog.modal.create article')}}</div>
         <div class="content">
             <div class="ui form">
                 <div class="ui field">
-                    <label>Title</label>
-                    <input type="text" placeholder="Album Title..." v-model="newArticle.title">
+                    <label>{{ trans('blog::blog.table.title') }}</label>
+                    <input type="text" v-model="newArticle.title">
                 </div>
 
                 <div class="ui green inverted fluid button" v-on:click="createNewArticle" v-bind:class="{'disabled':!newArticle.title}">
                     <i class="checkmark icon"></i>
-                    Create
+                    {{ trans('core::elements.button.create') }}
                 </div>
 
             </div>

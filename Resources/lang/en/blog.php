@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title' => [
+    'title'      => [
         'blog'           => 'Blog',
         'article'        => 'Article',
         'photo'          => 'Photo',
@@ -12,20 +12,20 @@ return [
         'files'          => 'Files',
         'all blog posts' => 'All Blog Posts',
     ],
-    'table' => [
-        'title'     => 'Title',
-        'author'    => 'Author',
-        'modified'  => 'Modified',
-        'status'    => 'Status',
+    'table'      => [
+        'title'    => 'Title',
+        'author'   => 'Author',
+        'modified' => 'Modified',
+        'status'   => 'Status',
     ],
-    'form' => [
+    'form'       => [
         'title'   => 'Title',
         'slug'    => 'Slug',
-        'content' => 'Content'
+        'content' => 'Content',
     ],
-    'state' => [
-        'pin'     => 'Pin',
-        'pinned'  => 'Pinned'
+    'state'      => [
+        'pin'    => 'Pin',
+        'pinned' => 'Pinned',
     ],
     'validation' => [
         'attributes' => [
@@ -33,7 +33,10 @@ return [
             'body'  => 'body',
         ],
     ],
-    'messages' => [
+    'modal'      => [
+        'create article' => 'Give your new article a title',
+    ],
+    'messages'   => [
         'no articles' => 'No blog posts yet. You can add one with the button above.',
     ],
 ];

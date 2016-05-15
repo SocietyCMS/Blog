@@ -42,8 +42,9 @@ class BlogController extends AdminBaseController
 
         $article = $this->article->create($input);
 
-        return redirect()->route('backend::blog.article.index')
-            ->with('success', 'Your article has been created successfully.');
+        flash(trans('core::messages.resource.resource created', ['name' => trans('blog::blog.title.article')]));
+
+        return redirect()->route('backend::blog.article.index');
     }
 
     public function edit($slug)
@@ -67,8 +68,9 @@ class BlogController extends AdminBaseController
 
         $this->article->update($input, $this->article->findBySlug($slug)->id);
 
-        return redirect()->route('backend::blog.article.index')
-            ->with('success', 'Your article has been updated successfully.');
+        flash(trans('core::messages.resource.resource updated', ['name' => trans('blog::blog.title.article')]));
+
+        return redirect()->route('backend::blog.article.index');
     }
 
     public function destroy($slug)
@@ -76,7 +78,8 @@ class BlogController extends AdminBaseController
         $article = $this->article->findBySlug($slug);
         $article->delete();
 
-        return redirect()->route('backend::blog.article.index')
-            ->with('success', 'Your article has been deleted.');
+        flash(trans('core::messages.resource.resource deleted', ['name' => trans('blog::blog.title.article')]));
+
+        return redirect()->route('backend::blog.article.index');
     }
 }
