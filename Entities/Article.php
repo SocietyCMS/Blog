@@ -5,8 +5,8 @@ namespace Modules\Blog\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
 use Modules\Core\Traits\Entities\RelatesToUser;
-use Modules\Core\Traits\Media\baseMediaConversions;
 use Modules\Core\Traits\Activity\RecordsActivity;
+use Modules\Core\Traits\Media\useMediaConversions;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
@@ -17,15 +17,12 @@ use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 class Article extends Model implements HasMediaConversions
 {
     use HasMediaTrait;
+    use useMediaConversions;
 
     use RecordsActivity;
     use PresentableTrait;
 
     use RelatesToUser;
-    
-    use baseMediaConversions {
-        registerMediaConversions as registerMediaConversionsFromTrait;
-    }
 
     /**
      * Presenter Class.
@@ -60,15 +57,12 @@ class Article extends Model implements HasMediaConversions
      */
     protected static $templatePath = 'blog::backend.activities';
 
-    /**
-     *
-     */
-    public function registerMediaConversions()
-    {
-        $this->addMediaConversion('square')
-            ->setManipulations(['w' => 300, 'h' => 300,  'fit' => 'crop'])
-            ->performOnCollections('cover');
 
+    /**
+     * Default MediaConversions for this Entity
+     */
+    public function additionalMediaConversions()
+    {
         $this->addMediaConversion('small')
             ->setManipulations(['w' => 300, 'h' => 55,  'fit' => 'crop'])
             ->performOnCollections('cover');
@@ -80,7 +74,6 @@ class Article extends Model implements HasMediaConversions
         $this->addMediaConversion('large')
             ->setManipulations(['w' => 1920, 'h' => 355,  'fit' => 'crop'])
             ->performOnCollections('cover');
-
-        $this->registerMediaConversionsFromTrait();
     }
+
 }
