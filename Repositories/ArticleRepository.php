@@ -29,8 +29,6 @@ class ArticleRepository extends EloquentSlugRepository
     /**
      * Return the latest x blog posts.
      *
-     * @param int $amount
-     *
      * @return Collection
      */
     public function latest()
@@ -56,8 +54,6 @@ class ArticleRepository extends EloquentSlugRepository
 
     /**
      * Return the latest published blog posts.
-     *
-     * @param int $amount
      *
      * @return Collection
      */
