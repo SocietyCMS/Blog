@@ -35,12 +35,18 @@
         <p>{!!$article->body!!}</p>
 
         @if($article->getFirstMedia('files'))
-            <div class="list-group">
-                @foreach($article->getMedia('files') as $media)
-                    <a href="{{$media->getURL()}}" target="_blank" class="list-group-item"><i class="fa fa-file-o"></i> {{$media->file_name}}</a>
-                @endforeach
+            <div class="card-deck">
+            @foreach($article->getMedia('files') as $media)
+                <a href="{{$media->getURL()}}" target="_blank" class="card file-card">
+                    @if(file_exists($media->getPath('thumbnail')))
+                        <img class="card-img-top img-fluid" src="{{$media->getUrl('thumbnail')}}" alt="Card image cap">
+                    @endif
+                    <div class="card-block">
+                        <p class="card-text">{{$media->file_name}}</p>
+                    </div>
+                </a>
+            @endforeach
             </div>
         @endif
-
     </div>
 @endsection

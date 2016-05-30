@@ -74,6 +74,11 @@ class Article extends Model implements HasMediaConversions
         $this->addMediaConversion('large')
             ->setManipulations(['w' => 1920, 'h' => 355,  'fit' => 'crop'])
             ->performOnCollections('cover');
+
+        $this->addMediaConversion('thumbnail')
+            ->setManipulations(['w' => 800])
+            ->performOnCollections('files');
+
     }
 
 }
