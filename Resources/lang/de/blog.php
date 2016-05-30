@@ -35,6 +35,7 @@ return [
     ],
     'modal'      => [
         'create article' => 'Gib deinem Artikel einen Titel.',
+        'delete article' => 'Bist du dir sicher, dass du diesen Artikel löschen willst?',
     ],
     'messages' => [
         'no articles' => 'Noch kein Blogeinträge. Du kannst aber einen erstellen mit der Schaltfäche oben.',

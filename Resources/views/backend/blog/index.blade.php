@@ -73,7 +73,7 @@
                             <div class="menu">
                                 <a class="item"
                                    href="{{route('backend::blog.article.edit', $article->slug)}}">@lang('core::elements.button.edit')</a>
-                                <button class="item">@lang('core::elements.button.delete')</button>
+                                <a class="item"  v-on:click="deleteArticleModal('{{$article->slug}}')">@lang('core::elements.button.delete')</a>
                             </div>
                         </div>
                     </form>
@@ -106,6 +106,31 @@
             </div>
         </div>
     </div>
+
+
+
+    <div class="ui basic modal" id="deleteArticleModal">
+        <div class="ui icon header">
+            <i class="newspaper icon"></i>
+            {{trans('blog::blog.modal.delete article')}}
+        </div>
+        <div class="ui center aligned content">
+            <div class="description">
+                <p></p>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="two fluid ui inverted buttons">
+                <div class="ui red basic approve inverted button">
+                    {{ trans('core::elements.button.delete') }}
+                </div>
+                <div class="ui green basic cancel inverted button">
+                    {{ trans('core::elements.button.cancel') }}
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @section('javascript')
     <script src="{{\Pingpong\Modules\Facades\Module::asset('blog:js/blog.js')}}"></script>

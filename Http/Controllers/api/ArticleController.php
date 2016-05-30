@@ -134,6 +134,9 @@ class ArticleController extends ApiBaseController
      */
     public function destroy(Request $request, $slug)
     {
-        throw new DebugBarException();
+        $article = $this->article->findBySlug($slug);
+        $article->delete();
+
+        return $this->response->noContent();
     }
 }

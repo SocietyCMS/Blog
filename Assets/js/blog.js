@@ -57,6 +57,15 @@
 	        newArticleModal: function newArticleModal() {
 	            $('#newArticleModal').modal('setting', 'transition', 'fade up').modal('show');
 	        },
+	        deleteArticleModal: function deleteArticleModal(slug) {
+	            console.log(slug);
+	            $('#deleteArticleModal').modal('setting', 'transition', 'fade up').modal({
+	                closable: false,
+	                onApprove: function onApprove() {
+	                    VueInstance.deleteArticle(slug);
+	                }
+	            }).modal('show');
+	        },
 	        createNewArticle: function createNewArticle() {
 	            var resource = this.$resource(societycms.api.blog.article.store);
 
@@ -75,6 +84,13 @@
 	                $('#newArticleModal').modal('close');
 	                Toastr.error('Error');
 	            });
+	        },
+	        deleteArticle: function deleteArticle(slug) {
+	            var resource = this.$resource(societycms.api.blog.article.destroy);
+
+	            resource.delete({ article: slug }, function (data, status, request) {
+	                location.reload();
+	            }).error(function (data, status, request) {});
 	        }
 	    }
 	});

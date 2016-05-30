@@ -35,6 +35,7 @@ return [
     ],
     'modal'      => [
         'create article' => 'Give your new article a title',
+        'delete article' => 'Are you sure you want to delete this Article?',
     ],
     'messages'   => [
         'no articles' => 'No blog posts yet. You can add one with the button above.',
