@@ -13,5 +13,8 @@
     "aliases": [],
     "files": [
         "start.php"
+    ],
+    "blocks": [
+        "recent"
     ]
 }
