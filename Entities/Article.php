@@ -51,6 +51,13 @@ class Article extends Model implements HasMediaConversions
     protected static $recordEvents = ['created'];
 
     /**
+     * Privacy setting for the dashboard. Articles are public.
+     *
+     * @var string
+     */
+    protected static $activityPrivacy = 'public';
+
+    /**
      * Views for the Dashboard timeline.
      *
      * @var string
