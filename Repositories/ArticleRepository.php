@@ -55,11 +55,12 @@ class ArticleRepository extends EloquentSlugRepository
     /**
      * Return the latest published blog posts.
      *
+     * @param null $amount
      * @return Collection
      */
-    public function latestPublishedArticles()
+    public function latestPublishedArticles($amount = null)
     {
-        return $this->model->wherePublished(1)->orderBy('created_at', 'desc')->get();
+        return $this->model->wherePublished(1)->orderBy('created_at', 'desc')->take($amount)->get();
     }
 
     /**
@@ -73,9 +74,9 @@ class ArticleRepository extends EloquentSlugRepository
     /**
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function latestPinnedArticles()
+    public function latestPinnedArticles($amount = null)
     {
-        return $this->model->wherePublished(1)->wherePinned(1)->orderBy('created_at', 'desc')->get();
+        return $this->model->wherePublished(1)->wherePinned(1)->orderBy('created_at', 'desc')->take($amount)->get();
     }
 
     /**
@@ -85,9 +86,9 @@ class ArticleRepository extends EloquentSlugRepository
      *
      * @return Collection
      */
-    public function latestPinnedAndPublishedArticles()
+    public function latestPinnedAndPublishedArticles($amount = null)
     {
-        return $this->model->wherePublished(1)->orderBy('pinned', 'desc')->orderBy('created_at', 'desc')->get();
+        return $this->model->wherePublished(1)->orderBy('pinned', 'desc')->orderBy('created_at', 'desc')->take($amount)->get();
     }
 
 
