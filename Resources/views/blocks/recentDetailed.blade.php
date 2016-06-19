@@ -7,8 +7,6 @@
                 <small class="text-muted">{{$article->present()->createdAt}} by
                     <b>{{$article->user->present()->fullname}}</b></small>
             </h4>
-            <div class="list-group-item-text">{{$article->present()->createdAt}} by
-                <b>{{$article->user->present()->fullname}}</b></div>
             <div class="list-group-item-text">{{$article->present()->summary}}</div>
         </a>
     @endforeach
