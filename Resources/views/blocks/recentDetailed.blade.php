@@ -2,9 +2,11 @@
     @foreach($data as $article)
         <a href="{{route('blog.show', $article->slug)}}"
            class="list-group-item @if($article->pinned) active @endif">
-            <div class="list-group-item-heading">
+            <h4 class="list-group-item-heading">
                 {{$article->title}}
-            </div>
+                <small class="text-muted">{{$article->present()->createdAt}} by
+                    <b>{{$article->user->present()->fullname}}</b></small>
+            </h4>
             <div class="list-group-item-text">{{$article->present()->createdAt}} by
                 <b>{{$article->user->present()->fullname}}</b></div>
             <div class="list-group-item-text">{{$article->present()->summary}}</div>
