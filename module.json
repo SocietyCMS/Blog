@@ -15,6 +15,7 @@
         "start.php"
     ],
     "blocks": [
-        "recent"
+        "recent",
+        "recent-detailed"
     ]
 }
